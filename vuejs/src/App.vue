@@ -7,7 +7,6 @@
         style="position: absolute; right: 0"
         >Mostrar Detalhes do jogador</v-btn
       >
-      <div class="d-flex justify-center active_player">Jogador atual: {{ this.dados.player.name }}</div>
 
       <div class="d-flex justify-center mt-2">
         <div class="roundTime px-3 py-1">{{ roundTime }}</div>
@@ -144,6 +143,20 @@
       </div>
       <!-- Transferir futuramente para componente de TR -->
     </div>
+    <v-row class="active_player mb-2">
+      <v-col cols="12" class="d-flex justify-space-around">
+        <v-col cols="2">vida : {{ this.dados.player.state.health }}</v-col>
+        <v-col cols="2">colete : {{ this.dados.player.state.armor }}</v-col>
+        <v-col cols="2"
+          >kills : {{ this.dados.player.match_stats.kills }}</v-col
+        >
+        <v-col cols="2"
+          >mortes : {{ this.dados.player.match_stats.deaths }}</v-col
+        >
+        <v-col cols="2"> Munição: {{ active_player_stats.actualAmmo }}</v-col>
+        <v-col cols="2"> Total: {{ active_player_stats.maximumAmmo }}</v-col>
+      </v-col>
+    </v-row>
   </v-app>
 </template>
 
@@ -264,6 +277,12 @@ export default {
       roundTime: 0,
       t_players: [],
       ct_players: [],
+      active_player_stats: {
+        active_weapon: null,
+        actualAmmo: null,
+        maximumAmmo: null,
+        remainingAmmo: null,
+      },
     };
   },
   sockets: {
@@ -272,11 +291,17 @@ export default {
       this.ct_players = [];
       this.t_players = [];
       this.dados = JSON.parse(data);
-      console.log(this.dados.player)
       this.players = this.dados.allplayers;
       this.roundTime = this.fancyTimeFormat(
         parseInt(Math.abs(this.dados.phase_countdowns.phase_ends_in))
       );
+      this.setPlayersWeapons();
+      this.setActivePlayerStats();
+      return data;
+    },
+  },
+  methods: {
+    setPlayersWeapons() {
       for (var [key, value] of Object.entries(this.players)) {
         if (value.team == "T") {
           for (var [chave, valor] of Object.entries(value.weapons)) {
@@ -295,16 +320,31 @@ export default {
         } else this.ct_players.push(value);
         key;
       }
-      return data;
     },
-  },
-  methods: {
+    setActivePlayerStats() {
+      console.log(this.dados);
+      for (var [chave, valor] of Object.entries(this.dados.player.weapons)) {
+        if (valor.type == "Rifle" || valor.type == "SniperRifle") {
+          this.active_player_stats.active_weapon = valor.name;
+          this.active_player_stats.actualAmmo = valor.ammo_clip;
+          this.active_player_stats.maximumAmmo = valor.ammo_clip_max;
+          this.active_player_stats.remainingAmmo = valor.ammo_reserve;
+        }
+        if (valor.type == "Pistol") {
+          this.active_player_stats.active_weapon = valor.name;
+          this.active_player_stats.actualAmmo = valor.ammo_clip;
+          this.active_player_stats.maximumAmmo = valor.ammo_clip_max;
+          this.active_player_stats.remainingAmmo = valor.ammo_reserve;
+        }
+        chave;
+      }
+    },
     clickButton: function (data) {
       // $socket is socket.io-client instance
       this.$socket.emit("emit_method", data);
     },
     showPlayerStats() {
-      console.log(this.t_players[0]);
+      console.log(this.active_player_stats);
     },
     fancyTimeFormat(duration) {
       // Hours, minutes and seconds
@@ -328,7 +368,7 @@ export default {
 </script>
 <style>
 #app {
-  background-color: rgba(0, 0, 0, 0);
+  background-color: rgba(0, 0, 0, 1);
   color: black;
 }
 .roundTime {
@@ -366,7 +406,10 @@ export default {
   width: 50px;
   height: 20px;
 }
-.active_player{
-  border: 2px solid #a53860;
+.active_player {
+  position: absolute;
+  background: #063;
+  bottom: 0px;
+  left: 50%;
 }
 </style>
