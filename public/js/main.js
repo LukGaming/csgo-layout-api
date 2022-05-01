@@ -118,12 +118,13 @@ var jogadores = []
 io.on('update', function (status) {
   json = JSON.parse(status)
   if (json.allplayers !== json.previously.allplayers && interaction === 0) {
+    console.log(jogadores)
     for (var [key, value] of Object.entries(json.allplayers)) {
       jogadores.push(value)
     }
     interaction++
   }
-  console.log(jogadores)
+  
 
   // if(jogadores.length < json.allplayers.length){
   //   jogadores = json.allplayers
