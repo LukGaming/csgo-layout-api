@@ -3,7 +3,8 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
-    players: [],
+    dados: null,
+    tPlayers: null,
     active_player_stats: {
       active_weapon: null,
       actualAmmo: null,
@@ -121,18 +122,39 @@ export default new Vuex.Store({
     icons (state) {
       return state.icons
     },
-    players (state) {
-      return state.players
-    }
+    tPlayers (state) {
+      return state.tPlayers
+    },
   },
   actions: {
-    setPlayers ({ commit }, payload) {
-      commit('setPlayers', payload)
-    }
+    setTPlayers ({ commit }, payload) {
+      let players = [];
+      for (var [key, value] of Object.entries(payload)) {
+        if (value.team == "T") {
+          for (var [chave, valor] of Object.entries(value.weapons)) {
+            console.log(value.weapons)
+            if (valor.type == "Knife") {
+              value.knife = valor.name;
+            }
+            if (valor.type == "Pistol") {
+              value.pistol = valor.name;
+            }
+            if (valor.type == "Rifle" || valor.type == "SniperRifle" || valor.type == "Submachine Gun") {
+              value.primary = valor.name;
+            }
+            chave;
+          }
+          players.push(value);
+          key;
+        }
+      }
+      commit('setTPlayers', players)
+    },
+
   },
   mutations: {
-    setPlayers (state, payload) {
-      state.players = payload
-    }
+    setTPlayers (state, payload) {
+      state.tPlayers = payload
+    },
   }
 })
