@@ -311,7 +311,7 @@ export default {
             if (valor.type == "Pistol") {
               value.pistol = valor.name;
             }
-            if (valor.type == "Rifle" || valor.type == "SniperRifle") {
+            if (valor.type == "Rifle" || valor.type == "SniperRifle" || valor.type == "Submachine Gun") {
               value.primary = valor.name;
             }
             chave;
@@ -322,7 +322,6 @@ export default {
       }
     },
     setActivePlayerStats() {
-      console.log(this.dados);
       for (var [chave, valor] of Object.entries(this.dados.player.weapons)) {
         if (valor.type == "Rifle" || valor.type == "SniperRifle") {
           this.active_player_stats.active_weapon = valor.name;
@@ -330,7 +329,7 @@ export default {
           this.active_player_stats.maximumAmmo = valor.ammo_clip_max;
           this.active_player_stats.remainingAmmo = valor.ammo_reserve;
         }
-        if (valor.type == "Pistol") {
+        if (valor.type == "Pistol" || valor.type == "Submachine Gun") {
           this.active_player_stats.active_weapon = valor.name;
           this.active_player_stats.actualAmmo = valor.ammo_clip;
           this.active_player_stats.maximumAmmo = valor.ammo_clip_max;
@@ -344,7 +343,7 @@ export default {
       this.$socket.emit("emit_method", data);
     },
     showPlayerStats() {
-      console.log(this.active_player_stats);
+      console.log(this.dados.player);
     },
     fancyTimeFormat(duration) {
       // Hours, minutes and seconds

@@ -44,8 +44,6 @@
             var body = '';
             req.on('data', function(data) {
                 body += data;
-                console.log('novos dados')
-                console.log(JSON.parse(data))
                 
             });
             
