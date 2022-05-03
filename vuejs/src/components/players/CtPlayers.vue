@@ -1,11 +1,11 @@
-<template >
-    <div>
-        <div class="ct mr-3 mb-3">
+<template>
+  <div>
+    <div class="ct mr-3 mb-3">
       <div v-for="player in ctPlayers" :key="player.index" class="player my-2">
         <v-row>
           <v-col>
             <div
-              class="life-name-weapon d-flex justify-content-around line-one"
+              class="life-name-weapon d-flex justify-content-around line-one background-ct-first-part"
             >
               <v-col cols="2">
                 <div class="life">{{ player.state.health }}</div>
@@ -27,43 +27,19 @@
                     alt=""
                     class="pistol"
                   />
-                    <img
-                      class="superRifle"
-                      v-if="player.primary"
-                      :src="icons[player.primary]"
-                      alt=""
-                    />
+                  <img
+                    class="superRifle"
+                    v-if="player.primary"
+                    :src="icons[player.primary]"
+                    alt=""
+                  />
                 </div>
-                <!-- <v-row class="float-right">
-                    <div v-for="weapon in player.weapons" :key="weapon.index">
-                      <img
-                        v-if="
-                          weapon.type == 'SniperRifle' || weapon.type == 'Rifle'
-                        "
-                        :src="icons[weapon.name]"
-                        alt=""
-                        class="weapon"
-                      />
-                      <img
-                        v-if="weapon.type == 'Knife'"
-                        :src="icons[weapon.name]"
-                        alt=""
-                        class="knife"
-                      />
-                      <img
-                        v-if="weapon.type == 'Pistol'"
-                        :src="icons[weapon.name]"
-                        alt=""
-                        class="pistol"
-                      />
-                    </div>
-                  </v-row> -->
               </v-col>
             </div>
           </v-col>
         </v-row>
 
-        <div class="d-flex justify-space-around">
+        <div class="d-flex justify-space-around background-ct-second-part">
           <div class="money">$ {{ player.state.money }}</div>
           <div class="d-flex justify-space-around">
             <div class="kills">$ {{ player.match_stats.kills }}</div>
@@ -103,16 +79,21 @@
         </div>
       </div>
     </div>
-    </div>
+  </div>
 </template>
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters } from "vuex";
 export default {
-    computed: {
-        ...mapGetters(["ctPlayers", "icons"])
-    }
-}
+  computed: {
+    ...mapGetters(["ctPlayers", "icons"]),
+  },
+};
 </script>
 <style>
-    
+.background-ct-first-part{
+  background-color: blue;
+}
+.background-ct-second-part{
+  background-color: black;
+}
 </style>

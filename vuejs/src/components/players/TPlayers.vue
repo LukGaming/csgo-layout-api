@@ -5,7 +5,7 @@
         <v-row>
           <v-col>
             <div
-              class="life-name-weapon d-flex justify-content-around line-one"
+              class="life-name-weapon d-flex justify-content-around line-one background-tr-first-part"
             >
               <v-col cols="2">
                 <div class="life">{{ player.state.health }}</div>
@@ -34,36 +34,12 @@
                     alt=""
                   />
                 </div>
-                <!-- <v-row class="float-right">
-                    <div v-for="weapon in player.weapons" :key="weapon.index">
-                      <img
-                        v-if="
-                          weapon.type == 'SniperRifle' || weapon.type == 'Rifle'
-                        "
-                        :src="icons[weapon.name]"
-                        alt=""
-                        class="weapon"
-                      />
-                      <img
-                        v-if="weapon.type == 'Knife'"
-                        :src="icons[weapon.name]"
-                        alt=""
-                        class="knife"
-                      />
-                      <img
-                        v-if="weapon.type == 'Pistol'"
-                        :src="icons[weapon.name]"
-                        alt=""
-                        class="pistol"
-                      />
-                    </div>
-                  </v-row> -->
               </v-col>
             </div>
           </v-col>
         </v-row>
 
-        <div class="d-flex justify-space-around">
+        <div class="d-flex justify-space-around background-tr-second-part">
           <div class="money">$ {{ player.state.money }}</div>
           <div class="d-flex justify-space-around">
             <div class="kills">$ {{ player.match_stats.kills }}</div>
@@ -114,4 +90,11 @@ export default {
   },
 };
 </script>
-<style></style>
+<style>
+.background-tr-first-part{
+  background-color: orange
+}
+.background-tr-second-part{
+  background-color: black;
+}
+  </style>

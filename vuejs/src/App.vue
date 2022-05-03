@@ -10,10 +10,17 @@
       <div class="d-flex justify-center mt-2">
         <div class="roundTime px-3 py-1">{{ roundTime }}</div>
       </div>
-      <CtPlayers/>
-      <TPlayers/>
+      <CtPlayers />
+      <TPlayers />
     </div>
     <v-row class="active_player mb-2">
+      <v-row class="d-flex justify-center player_image">
+          <img
+            class="player_avatar"
+            src="https://avatars.cloudflare.steamstatic.com/c5e3787f0f85db45ef18837d7092aa470dba6f63_full.jpg"
+            alt=""
+          />
+      </v-row>
       <v-col cols="12" class="d-flex justify-space-around">
         <v-col cols="2">vida : {{ this.dados.player.state.health }}</v-col>
         <v-col cols="2">colete : {{ this.dados.player.state.armor }}</v-col>
@@ -27,14 +34,13 @@
         <v-col cols="2"> Total: {{ active_player_stats.maximumAmmo }}</v-col>
       </v-col>
     </v-row>
-    
   </v-app>
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions } from "vuex";
 import CtPlayers from "./components/players/TPlayers.vue";
-import TPlayers from './components/players/CtPlayers.vue';
+import TPlayers from "./components/players/CtPlayers.vue";
 export default {
   name: "App",
   components: { CtPlayers, TPlayers },
@@ -167,14 +173,14 @@ export default {
       this.roundTime = this.fancyTimeFormat(
         parseInt(Math.abs(this.dados.phase_countdowns.phase_ends_in))
       );
-      this.setTPlayers(this.dados.allplayers)
-      this.setPlayersWeapons();
+      this.setTPlayers(this.dados.allplayers);
+      // this.setPlayersWeapons();
       this.setActivePlayerStats();
       return data;
     },
   },
   methods: {
-    ...mapActions(['setTPlayers']),
+    ...mapActions(["setTPlayers"]),
     setPlayersWeapons() {
       for (var [key, value] of Object.entries(this.players)) {
         if (value.team == "T") {
@@ -185,7 +191,11 @@ export default {
             if (valor.type == "Pistol") {
               value.pistol = valor.name;
             }
-            if (valor.type == "Rifle" || valor.type == "SniperRifle" || valor.type == "Submachine Gun") {
+            if (
+              valor.type == "Rifle" ||
+              valor.type == "SniperRifle" ||
+              valor.type == "Submachine Gun"
+            ) {
               value.primary = valor.name;
             }
             chave;
@@ -236,6 +246,7 @@ export default {
 #app {
   background-color: rgba(0, 0, 0, 1);
   color: white;
+  overflow: hidden;
 }
 .roundTime {
   border: 2px solid #a53860;
@@ -247,12 +258,13 @@ export default {
   bottom: 0;
 }
 .player {
-  border: 2px solid #a53860;
+  /* border: 2px solid #a53860; */
   width: 370px;
-  background-color: #61c9a8;
+  /* background-color: purple; */
+  opacity: 0.9;
 }
 .line-one {
-  border-bottom: 2px solid #a53860;
+  /* border-bottom: 2px solid #a53860; */
 }
 .grenades {
 }
@@ -272,7 +284,7 @@ export default {
   width: 30px;
   height: 15px;
 }
-.superRifle{
+.superRifle {
   width: 30%;
 }
 .active_player {
@@ -281,9 +293,13 @@ export default {
   bottom: 0px;
   left: 50%;
 }
-.ct{
+.ct {
   position: absolute;
   bottom: 0;
   right: 0;
+}
+.player_avatar{
+  width: 100px;
+  border-radius: 50%;
 }
 </style>
