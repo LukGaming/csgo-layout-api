@@ -5,6 +5,7 @@ export default new Vuex.Store({
   state: {
     dados: null,
     tPlayers: null,
+    ctPlayers: null,
     active_player_stats: {
       active_weapon: null,
       actualAmmo: null,
@@ -125,36 +126,66 @@ export default new Vuex.Store({
     tPlayers (state) {
       return state.tPlayers
     },
+    ctPlayers (state) {
+      return state.ctPlayers
+    }
   },
   actions: {
     setTPlayers ({ commit }, payload) {
-      let players = [];
+      let players = []
+      let ctPlayers = []
       for (var [key, value] of Object.entries(payload)) {
-        if (value.team == "T") {
+        if (value.team == 'T') {
           for (var [chave, valor] of Object.entries(value.weapons)) {
-            console.log(value.weapons)
-            if (valor.type == "Knife") {
-              value.knife = valor.name;
+            if (valor.type == 'Knife') {
+              value.knife = valor.name
             }
-            if (valor.type == "Pistol") {
-              value.pistol = valor.name;
+            if (valor.type == 'Pistol') {
+              value.pistol = valor.name
             }
-            if (valor.type == "Rifle" || valor.type == "SniperRifle" || valor.type == "Submachine Gun") {
-              value.primary = valor.name;
+            if (
+              valor.type == 'Rifle' ||
+              valor.type == 'SniperRifle' ||
+              valor.type == 'Submachine Gun'
+            ) {
+              value.primary = valor.name
             }
-            chave;
+            chave
           }
-          players.push(value);
-          key;
+          players.push(value)
+          key
+        }
+        if (value.team == 'CT') {
+          for (var [chav, valo] of Object.entries(value.weapons)) {
+            if (valo.type == 'Knife') {
+              value.knife = valo.name
+            }
+            if (valo.type == 'Pistol') {
+              value.pistol = valo.name
+            }
+            if (
+              valo.type == 'Rifle' ||
+              valo.type == 'SniperRifle' ||
+              valo.type == 'Submachine Gun'
+            ) {
+              value.primary = valo.name
+            }
+            chav
+            ctPlayers
+          }
+          ctPlayers.push(value);
         }
       }
+      commit('setCtPlayers', ctPlayers)
       commit('setTPlayers', players)
-    },
-
+    }
   },
   mutations: {
     setTPlayers (state, payload) {
       state.tPlayers = payload
     },
+    setCtPlayers (state, payload) {
+      state.ctPlayers = payload
+    }
   }
 })

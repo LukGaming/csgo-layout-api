@@ -1,7 +1,7 @@
-<template >
-    <div>
-        <div class="ct mr-3 mb-3">
-      <div v-for="player in ctPlayers" :key="player.index" class="player my-2">
+<template>
+  <div>
+    <div class="tr ml-3 mb-3">
+      <div v-for="player in tPlayers" :key="player.index" class="player my-2">
         <v-row>
           <v-col>
             <div
@@ -27,12 +27,12 @@
                     alt=""
                     class="pistol"
                   />
-                    <img
-                      class="superRifle"
-                      v-if="player.primary"
-                      :src="icons[player.primary]"
-                      alt=""
-                    />
+                  <img
+                    class="superRifle"
+                    v-if="player.primary"
+                    :src="icons[player.primary]"
+                    alt=""
+                  />
                 </div>
                 <!-- <v-row class="float-right">
                     <div v-for="weapon in player.weapons" :key="weapon.index">
@@ -103,16 +103,15 @@
         </div>
       </div>
     </div>
-    </div>
+  </div>
 </template>
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters } from "vuex";
+
 export default {
-    computed: {
-        ...mapGetters(["ctPlayers", "icons"])
-    }
-}
+  computed: {
+    ...mapGetters(["tPlayers", "icons"]),
+  },
+};
 </script>
-<style>
-    
-</style>
+<style></style>

@@ -11,6 +11,7 @@
         <div class="roundTime px-3 py-1">{{ roundTime }}</div>
       </div>
       <CtPlayers/>
+      <TPlayers/>
     </div>
     <v-row class="active_player mb-2">
       <v-col cols="12" class="d-flex justify-space-around">
@@ -32,10 +33,11 @@
 
 <script>
 import { mapActions } from 'vuex';
-import CtPlayers from "./components/players/CtPlayers.vue";
+import CtPlayers from "./components/players/TPlayers.vue";
+import TPlayers from './components/players/CtPlayers.vue';
 export default {
   name: "App",
-  components: { CtPlayers },
+  components: { CtPlayers, TPlayers },
   data() {
     return {
       icons: {
@@ -263,17 +265,25 @@ export default {
   height: 15px;
 }
 .knife {
-  width: 50px;
-  height: 20px;
+  width: 30px;
+  height: 15px;
 }
 .pistol {
-  width: 50px;
-  height: 20px;
+  width: 30px;
+  height: 15px;
+}
+.superRifle{
+  width: 30%;
 }
 .active_player {
   position: absolute;
   background: #063;
   bottom: 0px;
   left: 50%;
+}
+.ct{
+  position: absolute;
+  bottom: 0;
+  right: 0;
 }
 </style>
