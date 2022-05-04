@@ -1,7 +1,15 @@
 <template>
   <div>
-    <div class="tr ml-3 mb-3">
-      <div v-for="player in tPlayers" :key="player.index" class="player my-2">
+    <div class="tr ml-3 mb-3" >
+      <div
+        v-for="player in tPlayers"
+        :key="player.index"
+        class="my-2"
+        :class="{
+          player_dead: player.state.health === 0,
+          player: player.state.health > 0,
+        }"
+      >
         <v-row>
           <v-col>
             <div
@@ -91,10 +99,10 @@ export default {
 };
 </script>
 <style>
-.background-tr-first-part{
-  background-color: orange
+.background-tr-first-part {
+  background-color: orange;
 }
-.background-tr-second-part{
+.background-tr-second-part {
   background-color: black;
 }
-  </style>
+</style>

@@ -1,20 +1,30 @@
 <template>
   <div>
-    <div class="ct mr-3 mb-3">
-      <div v-for="player in ctPlayers" :key="player.index" class="player my-2">
+    <div class="ct mr-3 mb-3 d-flex align-end flex-column">
+      <div
+        v-for="player in ctPlayers"
+        :key="player.index"
+        class="mb-2"
+        :class="{
+          player_dead: player.state.health === 0,
+          player: player.state.health > 0,
+        }"
+      >
         <v-row>
           <v-col>
             <div
-              class="life-name-weapon d-flex justify-content-around line-one background-ct-first-part"
+              class="flex-row-reverse life-name-weapon d-flex justify-content-around line-one background-ct-first-part"
             >
               <v-col cols="2">
-                <div class="life">{{ player.state.health }}</div>
+                <div class="life" v-if="player.state.health > 0">
+                  {{ player.state.health }}
+                </div>
               </v-col>
               <v-col cols="2"
                 ><div class="name">{{ player.name }}</div></v-col
               >
               <v-col cols="8">
-                <div class="d-flex justify-space-around">
+                <div class="flex-row-reverse d-flex justify-space-around">
                   <img
                     v-if="player.knife"
                     :src="icons[player.knife]"
@@ -39,7 +49,9 @@
           </v-col>
         </v-row>
 
-        <div class="d-flex justify-space-around background-ct-second-part">
+        <div
+          class="flex-row-reverse d-flex justify-space-around background-ct-second-part"
+        >
           <div class="money">$ {{ player.state.money }}</div>
           <div class="d-flex justify-space-around">
             <div class="kills">$ {{ player.match_stats.kills }}</div>
@@ -90,10 +102,10 @@ export default {
 };
 </script>
 <style>
-.background-ct-first-part{
+.background-ct-first-part {
   background-color: blue;
 }
-.background-ct-second-part{
+.background-ct-second-part {
   background-color: black;
 }
 </style>

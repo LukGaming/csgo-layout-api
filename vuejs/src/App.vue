@@ -13,27 +13,25 @@
       <CtPlayers />
       <TPlayers />
     </div>
-    <v-row class="active_player mb-2">
-      <v-row class="d-flex justify-center player_image">
-          <img
-            class="player_avatar"
-            src="https://avatars.cloudflare.steamstatic.com/c5e3787f0f85db45ef18837d7092aa470dba6f63_full.jpg"
-            alt=""
-          />
-      </v-row>
+    <!-- <v-row class="active_player mb-2">
       <v-col cols="12" class="d-flex justify-space-around">
         <v-col cols="2">vida : {{ this.dados.player.state.health }}</v-col>
         <v-col cols="2">colete : {{ this.dados.player.state.armor }}</v-col>
         <v-col cols="2"
           >kills : {{ this.dados.player.match_stats.kills }}</v-col
         >
+        <img
+          class="player_avatar"
+          src="https://avatars.cloudflare.steamstatic.com/c5e3787f0f85db45ef18837d7092aa470dba6f63_full.jpg"
+          alt=""
+        />
         <v-col cols="2"
           >mortes : {{ this.dados.player.match_stats.deaths }}</v-col
         >
         <v-col cols="2"> Munição: {{ active_player_stats.actualAmmo }}</v-col>
         <v-col cols="2"> Total: {{ active_player_stats.maximumAmmo }}</v-col>
       </v-col>
-    </v-row>
+    </v-row> -->
   </v-app>
 </template>
 
@@ -244,7 +242,7 @@ export default {
 </script>
 <style>
 #app {
-  background-color: rgba(0, 0, 0, 1);
+  background-color: rgba(0, 0, 0, 0);
   color: white;
   overflow: hidden;
 }
@@ -258,9 +256,11 @@ export default {
   bottom: 0;
 }
 .player {
-  /* border: 2px solid #a53860; */
   width: 370px;
-  /* background-color: purple; */
+  opacity: 0.9;
+}
+.player_dead {
+  width: 300px;
   opacity: 0.9;
 }
 .line-one {
@@ -277,7 +277,7 @@ export default {
   height: 15px;
 }
 .knife {
-  width: 30px;
+  width: 40px;
   height: 15px;
 }
 .pistol {
@@ -298,7 +298,7 @@ export default {
   bottom: 0;
   right: 0;
 }
-.player_avatar{
+.player_avatar {
   width: 100px;
   border-radius: 50%;
 }
