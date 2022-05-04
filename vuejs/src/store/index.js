@@ -139,9 +139,21 @@ export default new Vuex.Store({
           for (var [chave, valor] of Object.entries(value.weapons)) {
             if (valor.type == 'Knife') {
               value.knife = valor.name
+              if(valor.state == "active"){
+                value.knifeActive = true
+              }
+              else{
+                value.knifeActive = false
+              }
             }
             if (valor.type == 'Pistol') {
               value.pistol = valor.name
+              if(valor.state == "active"){
+                value.pistolActive = true
+              }
+              else{
+                value.pistolActive = false
+              }
             }
             if (
               valor.type == 'Rifle' ||
@@ -149,6 +161,13 @@ export default new Vuex.Store({
               valor.type == 'Submachine Gun'
             ) {
               value.primary = valor.name
+              if(valor.state == "active"){
+                value.primaryActive = true
+              }
+              else{
+                value.primaryActive = false
+              }
+              
             }
             chave
           }

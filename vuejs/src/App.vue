@@ -242,7 +242,7 @@ export default {
 </script>
 <style>
 #app {
-  background-color: rgba(0, 0, 0, 0);
+  background-color: rgba(0, 0, 0, 1);
   color: white;
   overflow: hidden;
 }

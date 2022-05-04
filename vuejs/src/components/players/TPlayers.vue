@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="tr ml-3 mb-3" >
+    <div class="tr ml-3 mb-3">
       <div
         v-for="player in tPlayers"
         :key="player.index"
@@ -28,18 +28,21 @@
                     :src="icons[player.knife]"
                     alt=""
                     class="knife"
+                    :class="{ grenadeIsActive: player.knifeActive }"
                   />
                   <img
                     v-if="player.pistol"
                     :src="icons[player.pistol]"
                     alt=""
                     class="pistol"
+                    :class="{ grenadeIsActive: player.pistolActive }"
                   />
                   <img
                     class="superRifle"
                     v-if="player.primary"
                     :src="icons[player.primary]"
                     alt=""
+                    :class="{ grenadeIsActive: player.primaryActive }"
                   />
                 </div>
               </v-col>
@@ -58,19 +61,35 @@
             <div v-for="weapon in player.weapons" :key="weapon.index">
               <div v-if="weapon.type == 'Grenade'">
                 <div v-if="weapon.name == 'weapon_flashbang'">
-                  <img :src="icons.flashbang" alt="" class="granade_active" />
+                  <img
+                    :src="icons.flashbang"
+                    alt=""
+                    class="granade_active"
+                    :class="{ grenadeIsActive: weapon.state === 'active' }"
+                  />
                 </div>
                 <div v-if="weapon.name == 'weapon_hegrenade'">
-                  <img :src="icons.hegrenade" alt="" class="granade_active" />
+                  <img
+                    :src="icons.hegrenade"
+                    alt=""
+                    class="granade_active"
+                    :class="{ grenadeIsActive: weapon.state === 'active' }"
+                  />
                 </div>
                 <div v-if="weapon.name == 'weapon_molotov'">
-                  <img :src="icons.molotov" alt="" class="granade_active" />
+                  <img
+                    :src="icons.molotov"
+                    alt=""
+                    class="granade_active"
+                    :class="{ grenadeIsActive: weapon.state === 'active' }"
+                  />
                 </div>
                 <div v-if="weapon.name == 'weapon_smokegrenade'">
                   <img
                     :src="icons.smokegrenade"
                     alt=""
                     class="granade_active"
+                    :class="{ grenadeIsActive: weapon.state === 'active' }"
                   />
                 </div>
               </div>
@@ -104,5 +123,8 @@ export default {
 }
 .background-tr-second-part {
   background-color: black;
+}
+.grenadeIsActive {
+  background-color: red;
 }
 </style>
