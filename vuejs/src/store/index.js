@@ -178,9 +178,21 @@ export default new Vuex.Store({
           for (var [chav, valo] of Object.entries(value.weapons)) {
             if (valo.type == 'Knife') {
               value.knife = valo.name
+              if(valo.state == "active"){
+                value.knifeActive = true
+              }
+              else{
+                value.knifeActive = false
+              }
             }
             if (valo.type == 'Pistol') {
               value.pistol = valo.name
+              if(valo.state == "active"){
+                value.pistolActive = true
+              }
+              else{
+                value.pistolActive = false
+              }
             }
             if (
               valo.type == 'Rifle' ||
@@ -188,6 +200,12 @@ export default new Vuex.Store({
               valo.type == 'Submachine Gun'
             ) {
               value.primary = valo.name
+              if(valo.state == "active"){
+                value.primaryActive = true
+              }
+              else{
+                value.primaryActive = false
+              }
             }
             chav
             ctPlayers

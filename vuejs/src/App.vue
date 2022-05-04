@@ -280,6 +280,9 @@ export default {
   width: 40px;
   height: 15px;
 }
+.rotate{
+  transform: rotateY(180Deg);
+}
 .pistol {
   width: 30px;
   height: 15px;
@@ -301,5 +304,32 @@ export default {
 .player_avatar {
   width: 100px;
   border-radius: 50%;
+}
+.background-tr-first-part {
+  background-color: orange;
+}
+.background-tr-second-part {
+  background-color: black;
+  min-height: 30px;
+  max-height: 30px;
+}
+.grenadeIsActive {
+  -webkit-filter:invert(100%);
+}
+.smokeGrenade{
+  width: 10px;
+  -webkit-filter:invert(50%);
+}
+.flashbang {
+  width: 25px;
+  -webkit-filter:invert(50%);
+}
+.hegrenade{
+  -webkit-filter:invert(50%);
+  width: 15px;
+}
+.molotov{
+  width: 15px;
+  -webkit-filter:invert(50%);
 }
 </style>
