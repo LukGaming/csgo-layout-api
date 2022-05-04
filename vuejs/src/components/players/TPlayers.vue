@@ -60,19 +60,19 @@
           <div class="d-flex justify-space-around grenades">
             <div v-for="weapon in player.weapons" :key="weapon.index">
               <div v-if="weapon.type == 'Grenade'">
-                <div v-if="weapon.name == 'weapon_flashbang'">
+                <div v-if="weapon.name == 'weapon_flashbang mt-1'">
                   <img
                     :src="icons.flashbang"
                     alt=""
-                    class="granade_active"
+                    class="flashbang"
                     :class="{ grenadeIsActive: weapon.state === 'active' }"
                   />
                 </div>
-                <div v-if="weapon.name == 'weapon_hegrenade'">
+                <div v-if="weapon.name == 'weapon_hegrenade '">
                   <img
                     :src="icons.hegrenade"
                     alt=""
-                    class="granade_active"
+                    class="hegrenade"
                     :class="{ grenadeIsActive: weapon.state === 'active' }"
                   />
                 </div>
@@ -80,7 +80,7 @@
                   <img
                     :src="icons.molotov"
                     alt=""
-                    class="granade_active"
+                    class="molotov mt-2 my-1"
                     :class="{ grenadeIsActive: weapon.state === 'active' }"
                   />
                 </div>
@@ -88,7 +88,7 @@
                   <img
                     :src="icons.smokegrenade"
                     alt=""
-                    class="granade_active"
+                    class="smokeGrenade mt-2"
                     :class="{ grenadeIsActive: weapon.state === 'active' }"
                   />
                 </div>
@@ -125,6 +125,22 @@ export default {
   background-color: black;
 }
 .grenadeIsActive {
-  background-color: red;
+  -webkit-filter:invert(100%);
+}
+.smokeGrenade{
+  width: 10px;
+  -webkit-filter:invert(50%);
+}
+.flashbang {
+  width: 25px;
+  -webkit-filter:invert(50%);
+}
+.hegrenade{
+  -webkit-filter:invert(50%);
+  width: 20px;
+}
+.molotov{
+  width: 20px;
+  -webkit-filter:invert(100%);
 }
 </style>
