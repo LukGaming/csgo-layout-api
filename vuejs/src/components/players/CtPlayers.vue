@@ -69,7 +69,7 @@
                     :src="icons.flashbang"
                     alt=""
                     class="flashbang mt-1 mr-2"
-                    :class="{ 'grenadeIsActive': weapon.state === 'active' }"
+                    :class="{ grenadeIsActive: weapon.state === 'active' }"
                   />
                 </div>
                 <div v-if="weapon.name == 'weapon_hegrenade'">
@@ -77,7 +77,7 @@
                     :src="icons.hegrenade"
                     alt=""
                     class="hegrenade mt-3 mr-2"
-                    :class="{ 'grenadeIsActive': weapon.state === 'active' }"
+                    :class="{ grenadeIsActive: weapon.state === 'active' }"
                   />
                 </div>
                 <div v-if="weapon.name == 'weapon_molotov'">
@@ -85,7 +85,7 @@
                     :src="icons.molotov"
                     alt=""
                     class="molotov mt-3 mr-2"
-                    :class="{ 'grenadeIsActive': weapon.state === 'active' }"
+                    :class="{ grenadeIsActive: weapon.state === 'active' }"
                   />
                 </div>
                 <div v-if="weapon.name == 'weapon_smokegrenade'">
@@ -93,7 +93,7 @@
                     :src="icons.smokegrenade"
                     alt=""
                     class="smokeGrenade mt-3 mr-2"
-                    :class="{ 'grenadeIsActive': weapon.state === 'active' }"
+                    :class="{ grenadeIsActive: weapon.state === 'active' }"
                   />
                 </div>
               </div>

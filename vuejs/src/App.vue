@@ -314,6 +314,7 @@ export default {
   max-height: 30px;
 }
 .grenadeIsActive {
+  /* background-color: red; */
   -webkit-filter:invert(100%);
 }
 .smokeGrenade{
@@ -325,7 +326,7 @@ export default {
   -webkit-filter:invert(50%);
 }
 .hegrenade{
-  -webkit-filter:invert(50%);
+  /* -webkit-filter:invert(10%); */
   width: 15px;
 }
 .molotov{
