@@ -4,7 +4,7 @@
       <div
         v-for="player in ctPlayers"
         :key="player.index"
-        class="mb-2"
+        class="mb-1"
         :class="{
           player_dead: player.state.health === 0,
           player: player.state.health > 0,
@@ -13,41 +13,46 @@
         <v-row>
           <v-col>
             <div
-              class="flex-row-reverse life-name-weapon d-flex justify-content-around line-one background-ct-first-part"
+              class="backgroound-health-ct "
+              :style="{ width: '70%' }"
             >
-              <v-col cols="2">
-                <div class="life" v-if="player.state.health > 0">
-                  {{ player.state.health }}
-                </div>
-              </v-col>
-              <v-col cols="2"
-                ><div class="name">{{ player.name }}</div></v-col
+              <div
+                class=" life-name-weapon d-flex flex-row-reverse justify-content-around line-one background-ct-first-part"
               >
-              <v-col cols="8">
-                <div class="flex-row-reverse d-flex justify-space-around">
-                  <!-- <img
+                <v-col cols="2">
+                  <div class="life" v-if="player.state.health > 0">
+                    {{ player.state.health }}
+                  </div>
+                </v-col>
+                <v-col cols="2"
+                  ><div class="name">{{ player.name }}</div></v-col
+                >
+                <v-col cols="8">
+                  <div class="flex-row-reverse d-flex justify-space-around">
+                    <!-- <img
                     v-if="player.knife"
                     :src="icons[player.knife]"
                     alt=""
                     class="knife rotate"
                     :class="{ grenadeIsActive: player.knifeActive }"
                   /> -->
-                  <img
-                    v-if="player.pistol"
-                    :src="icons[player.pistol]"
-                    alt=""
-                    class="pistol rotate"
-                    :class="{ grenadeIsActive: player.pistolActive }"
-                  />
-                  <img
-                    class="superRifle rotate"
-                    v-if="player.primary"
-                    :src="icons[player.primary]"
-                    alt=""
-                    :class="{ grenadeIsActive: player.primaryActive }"
-                  />
-                </div>
-              </v-col>
+                    <img
+                      v-if="player.pistol"
+                      :src="icons[player.pistol]"
+                      alt=""
+                      class="pistol rotate"
+                      :class="{ grenadeIsActive: player.pistolActive }"
+                    />
+                    <img
+                      class="superRifle rotate"
+                      v-if="player.primary"
+                      :src="icons[player.primary]"
+                      alt=""
+                      :class="{ grenadeIsActive: player.primaryActive }"
+                    />
+                  </div>
+                </v-col>
+              </div>
             </div>
           </v-col>
         </v-row>
@@ -122,7 +127,7 @@ export default {
 </script>
 <style>
 .background-ct-first-part {
-  background-color: blue;
+  width: 370px;
   min-height: 60px;
   max-height: 60px;
 }
@@ -131,8 +136,8 @@ export default {
   min-height: 30px;
   max-height: 30px;
 }
-.life-player {
-  background-color: red !important;
-  width: 70%;
+.backgroound-health-ct{
+  height: px;
+  background-color: blue;
 }
 </style>

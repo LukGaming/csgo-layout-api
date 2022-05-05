@@ -1,11 +1,10 @@
 <template>
   <div>
-    <img :src="icons.hegrenade" alt="" class="hegrenade mt-3 mr-2" />
     <div class="tr ml-3 mb-3">
       <div
         v-for="player in tPlayers"
         :key="player.index"
-        class="my-2"
+        class="my-1"
         :class="{
           player_dead: player.state.health === 0,
           player: player.state.health > 0,
@@ -13,48 +12,50 @@
       >
         <v-row>
           <v-col>
-            <div
-              class="life-name-weapon d-flex justify-content-around line-one background-tr-first-part"
-            >
-              <v-col cols="2">
-                <div class="life">{{ player.state.health }}</div>
-              </v-col>
-              <v-col cols="3"
-                ><div class="name ">{{ player.name }}</div></v-col
+            <div class="backgroound-health-tr " :style="{width: player.state.health+'%'}">
+              <div
+                class="life-name-weapon d-flex justify-content-around line-one background-tr-first-part"
               >
-              <v-col cols="7">
-                <div class="d-flex justify-end">
-                  <!-- <img 
+                <v-col cols="2">
+                  <div class="life">{{ player.state.health }}</div>
+                </v-col>
+                <v-col cols="3"
+                  ><div class="name">{{ player.name }}</div></v-col
+                >
+                <v-col cols="7">
+                  <div class="d-flex justify-end">
+                    <!-- <img 
                     v-if="player.knife"
                     :src="icons[player.knife]"
                     alt=""
                     class="knife"
                     :class="{ grenadeIsActive: player.knifeActive }"
                   /> -->
-                  <img
-                    v-if="player.pistol"
-                    :src="icons[player.pistol]"
-                    alt=""
-                    class="pistol ml-5 mt-1"
-                    :class="{ grenadeIsActive: player.pistolActive }"
-                  />
-                  <img
-                    class="superRifle ml-5"
-                    v-if="player.primary"
-                    :src="icons[player.primary]"
-                    alt=""
-                    :class="{ grenadeIsActive: player.primaryActive }"
-                  />
-                </div>
-              </v-col>
+                    <img
+                      v-if="player.pistol"
+                      :src="icons[player.pistol]"
+                      alt=""
+                      class="pistol ml-5 mt-1"
+                      :class="{ grenadeIsActive: player.pistolActive }"
+                    />
+                    <img
+                      class="superRifle ml-5"
+                      v-if="player.primary"
+                      :src="icons[player.primary]"
+                      alt=""
+                      :class="{ grenadeIsActive: player.primaryActive }"
+                    />
+                  </div>
+                </v-col>
+              </div>
             </div>
           </v-col>
         </v-row>
         <div class="d-flex justify-space-around background-tr-second-part">
           <div class="money mt-1">$ {{ player.state.money }}</div>
           <div class="d-flex justify-space-around mt-1">
-            <div class="kills ">$ {{ player.match_stats.kills }}</div>
-            <div class="kills ">-</div>
+            <div class="kills">$ {{ player.match_stats.kills }}</div>
+            <div class="kills">-</div>
             <div class="deaths">$ {{ player.match_stats.deaths }}</div>
           </div>
           <div class="d-flex justify-space-around grenades">
@@ -117,4 +118,11 @@ export default {
   },
 };
 </script>
-<style></style>
+<style>
+.tr_background_health {
+  z-index: 2;
+  background-color: red !important;
+  width: 300px;
+  height: 320px;
+}
+</style>
