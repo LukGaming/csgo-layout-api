@@ -25,13 +25,13 @@
               >
               <v-col cols="8">
                 <div class="flex-row-reverse d-flex justify-space-around">
-                  <img
+                  <!-- <img
                     v-if="player.knife"
                     :src="icons[player.knife]"
                     alt=""
                     class="knife rotate"
                     :class="{ grenadeIsActive: player.knifeActive }"
-                  />
+                  /> -->
                   <img
                     v-if="player.pistol"
                     :src="icons[player.pistol]"
@@ -55,8 +55,8 @@
         <div
           class="flex-row-reverse d-flex justify-space-around background-ct-second-part"
         >
-          <div class="money">$ {{ player.state.money }}</div>
-          <div class="d-flex justify-space-around">
+          <div class="money mt-1">$ {{ player.state.money }}</div>
+          <div class="d-flex justify-space-around mt-1">
             <div class="kills">$ {{ player.match_stats.kills }}</div>
             <div class="kills">-</div>
             <div class="deaths">$ {{ player.match_stats.deaths }}</div>
@@ -68,32 +68,32 @@
                   <img
                     :src="icons.flashbang"
                     alt=""
-                    class="flashbang mt-1 mr-2"
-                    :class="{ grenadeIsActive: weapon.state === 'active' }"
+                    class="flashbang mr-2"
+                    :class="{ grenadeIsActive: weapon.state == 'active' }"
                   />
                 </div>
                 <div v-if="weapon.name == 'weapon_hegrenade'">
                   <img
                     :src="icons.hegrenade"
                     alt=""
-                    class="hegrenade mt-3 mr-2"
-                    :class="{ grenadeIsActive: weapon.state === 'active' }"
+                    class="hegrenade mt-1 mr-2"
+                    :class="{ grenadeIsActive: weapon.state == 'active' }"
                   />
                 </div>
                 <div v-if="weapon.name == 'weapon_molotov'">
                   <img
                     :src="icons.molotov"
                     alt=""
-                    class="molotov mt-3 mr-2"
-                    :class="{ grenadeIsActive: weapon.state === 'active' }"
+                    class="molotov mt-1 mr-2"
+                    :class="{ grenadeIsActive: weapon.state == 'active' }"
                   />
                 </div>
                 <div v-if="weapon.name == 'weapon_smokegrenade'">
                   <img
                     :src="icons.smokegrenade"
                     alt=""
-                    class="smokeGrenade mt-3 mr-2"
-                    :class="{ grenadeIsActive: weapon.state === 'active' }"
+                    class="smokeGrenade mt-1 mr-2"
+                    :class="{ grenadeIsActive: weapon.state == 'active' }"
                   />
                 </div>
               </div>
@@ -123,10 +123,16 @@ export default {
 <style>
 .background-ct-first-part {
   background-color: blue;
+  min-height: 60px;
+  max-height: 60px;
 }
 .background-ct-second-part {
   background-color: black;
   min-height: 30px;
   max-height: 30px;
+}
+.life-player {
+  background-color: red !important;
+  width: 70%;
 }
 </style>

@@ -1,5 +1,6 @@
 <template>
   <div>
+    <img :src="icons.hegrenade" alt="" class="hegrenade mt-3 mr-2" />
     <div class="tr ml-3 mb-3">
       <div
         v-for="player in tPlayers"
@@ -18,27 +19,27 @@
               <v-col cols="2">
                 <div class="life">{{ player.state.health }}</div>
               </v-col>
-              <v-col cols="2"
-                ><div class="name">{{ player.name }}</div></v-col
+              <v-col cols="3"
+                ><div class="name ">{{ player.name }}</div></v-col
               >
-              <v-col cols="8">
-                <div class="d-flex justify-space-around">
-                  <img
+              <v-col cols="7">
+                <div class="d-flex justify-end">
+                  <!-- <img 
                     v-if="player.knife"
                     :src="icons[player.knife]"
                     alt=""
                     class="knife"
                     :class="{ grenadeIsActive: player.knifeActive }"
-                  />
+                  /> -->
                   <img
                     v-if="player.pistol"
                     :src="icons[player.pistol]"
                     alt=""
-                    class="pistol"
+                    class="pistol ml-5 mt-1"
                     :class="{ grenadeIsActive: player.pistolActive }"
                   />
                   <img
-                    class="superRifle"
+                    class="superRifle ml-5"
                     v-if="player.primary"
                     :src="icons[player.primary]"
                     alt=""
@@ -50,10 +51,10 @@
           </v-col>
         </v-row>
         <div class="d-flex justify-space-around background-tr-second-part">
-          <div class="money">$ {{ player.state.money }}</div>
-          <div class="d-flex justify-space-around">
-            <div class="kills">$ {{ player.match_stats.kills }}</div>
-            <div class="kills">-</div>
+          <div class="money mt-1">$ {{ player.state.money }}</div>
+          <div class="d-flex justify-space-around mt-1">
+            <div class="kills ">$ {{ player.match_stats.kills }}</div>
+            <div class="kills ">-</div>
             <div class="deaths">$ {{ player.match_stats.deaths }}</div>
           </div>
           <div class="d-flex justify-space-around grenades">
@@ -63,33 +64,32 @@
                   <img
                     :src="icons.flashbang"
                     alt=""
-                    class="flashbang mt-1 mr-2"
-                    :class="{ 'grenadeIsActive': weapon.state == 'active' }"
+                    class="flashbang mr-2"
+                    :class="{ grenadeIsActive: weapon.state == 'active' }"
                   />
                 </div>
                 <div v-if="weapon.name == 'weapon_hegrenade'">
-                  {{weapon.state}}
                   <img
                     :src="icons.hegrenade"
                     alt=""
-                    class="hegrenade mt-3 mr-2"
-                    :class="{ 'grenadeIsActive': weapon.state == 'active' }"
+                    class="hegrenade mt-1 mr-2"
+                    :class="{ grenadeIsActive: weapon.state == 'active' }"
                   />
                 </div>
                 <div v-if="weapon.name == 'weapon_molotov'">
                   <img
                     :src="icons.molotov"
                     alt=""
-                    class="molotov mt-3 mr-2"
-                    :class="{ 'grenadeIsActive': weapon.state == 'active' }"
+                    class="molotov mt-1 mr-2"
+                    :class="{ grenadeIsActive: weapon.state == 'active' }"
                   />
                 </div>
                 <div v-if="weapon.name == 'weapon_smokegrenade'">
                   <img
                     :src="icons.smokegrenade"
                     alt=""
-                    class="smokeGrenade mt-3 mr-2"
-                    :class="{ 'grenadeIsActive': weapon.state == 'active' }"
+                    class="smokeGrenade mt-1 mr-2"
+                    :class="{ grenadeIsActive: weapon.state == 'active' }"
                   />
                 </div>
               </div>
@@ -117,5 +117,4 @@ export default {
   },
 };
 </script>
-<style>
-</style>
+<style></style>

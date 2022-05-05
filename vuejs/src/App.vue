@@ -242,7 +242,7 @@ export default {
 </script>
 <style>
 #app {
-  background-color: rgba(0, 0, 0, 1);
+  background-color: rgba(0, 0, 0, 0);
   color: white;
   overflow: hidden;
 }
@@ -284,11 +284,11 @@ export default {
   transform: rotateY(180Deg);
 }
 .pistol {
-  width: 30px;
+  width: 40px;
   height: 15px;
 }
 .superRifle {
-  width: 30%;
+  width: 40%;
 }
 .active_player {
   position: absolute;
@@ -307,6 +307,8 @@ export default {
 }
 .background-tr-first-part {
   background-color: orange;
+  min-height: 60px;
+  max-height: 60px;
 }
 .background-tr-second-part {
   background-color: black;
@@ -314,19 +316,18 @@ export default {
   max-height: 30px;
 }
 .grenadeIsActive {
-  /* background-color: red; */
-  -webkit-filter:invert(100%);
+  -webkit-filter:invert(100%) !important;
 }
 .smokeGrenade{
   width: 10px;
   -webkit-filter:invert(50%);
 }
 .flashbang {
-  width: 25px;
+  width: 20px;
   -webkit-filter:invert(50%);
 }
 .hegrenade{
-  /* -webkit-filter:invert(10%); */
+  -webkit-filter:invert(50%);
   width: 15px;
 }
 .molotov{

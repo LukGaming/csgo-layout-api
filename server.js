@@ -12,19 +12,19 @@
     console.log("\tStarting CSGO Data Integration HUD "+version+" by Double0negative");
     console.log("\thttps://github.com/Double0negative/CSGO-HUD");
 
-    app.set('view engine', 'jade');
+    // app.set('view engine', 'jade');
 
-    app.get('/', function(req, res) {
-        res.render('index');
-    });
+    // app.get('/', function(req, res) {
+    //     res.render('index');
+    // });
 
-    app.get('/main.js', function(req, res) {
-        res.sendFile(__dirname +'/public/js/main.js');
-    });
+    // app.get('/main.js', function(req, res) {
+    //     res.sendFile(__dirname +'/public/js/main.js');
+    // });
 
-    app.get('/style.css', function(req, res) {
-        res.sendFile(__dirname +'/public/css/style.css');
-    });
+    // app.get('/style.css', function(req, res) {
+    //     res.sendFile(__dirname +'/public/css/style.css');
+    // });
 
     io.on('connection', function(socket) {
         
