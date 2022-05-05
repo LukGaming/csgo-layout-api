@@ -55,7 +55,7 @@ export default new Vuex.Store({
     roundTime (state) {
       return state.roundTime
     },
-    mapStats(state){
+    mapStats (state) {
       return state.mapStats
     }
   },
@@ -140,6 +140,9 @@ export default new Vuex.Store({
     },
     setTimeRound ({ commit }, payload) {
       commit('setTimeRound', payload)
+    },
+    mapStats ({ commit }, payload) {
+      commit('mapStats', payload)
     }
   },
   mutations: {
@@ -151,6 +154,9 @@ export default new Vuex.Store({
     },
     setCtPlayers (state, payload) {
       state.ctPlayers = payload
+    },
+    mapStats (state, payload) {
+      state.mapStats = payload
     }
   }
 })

@@ -70,6 +70,7 @@ export default {
         parseInt(Math.abs(this.dados.phase_countdowns.phase_ends_in))
       );
       this.setTimeRound(this.roundTime );
+      this.mapStats(this.dados.map)
       this.setTPlayers(this.dados.allplayers);
       // this.setPlayersWeapons();
       this.setActivePlayerStats();
@@ -77,7 +78,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["setTPlayers", "setTimeRound"]),
+    ...mapActions(["setTPlayers", "setTimeRound", "mapStats"]),
     setPlayersWeapons() {
       for (var [key, value] of Object.entries(this.players)) {
         if (value.team == "T") {
@@ -141,14 +142,17 @@ export default {
 </script>
 <style>
 #app {
-  background-color: rgba(0, 0, 0, 1);
+  background-color: rgba(0, 0, 0, 0);
   color: white;
   overflow: hidden;
 }
 .roundTime {
-  border: 2px solid #a53860;
-  font-size: 2rem;
+  /* border: 2px solid #a53860; */
+  font-size: 3rem;
   color: white;
+}
+.team_name{
+  font-size: 2rem;
 }
 .tr {
   position: absolute;
