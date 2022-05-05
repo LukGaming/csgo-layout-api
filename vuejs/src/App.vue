@@ -8,7 +8,7 @@
         >Mostrar Detalhes do jogador</v-btn
       >
       <div class="d-flex justify-center mt-2">
-        <div class="roundTime px-3 py-1">{{ roundTime }}</div>
+        <GameTopResults />
       </div>
       <CtPlayers />
       <TPlayers />
@@ -39,9 +39,10 @@
 import { mapActions } from "vuex";
 import CtPlayers from "./components/players/TPlayers.vue";
 import TPlayers from "./components/players/CtPlayers.vue";
+import GameTopResults from "./components/players/GameTopResults.vue";
 export default {
   name: "App",
-  components: { CtPlayers, TPlayers },
+  components: { CtPlayers, TPlayers, GameTopResults },
   data() {
     return {
       dados: null,
@@ -68,6 +69,7 @@ export default {
       this.roundTime = this.fancyTimeFormat(
         parseInt(Math.abs(this.dados.phase_countdowns.phase_ends_in))
       );
+      this.setTimeRound(this.roundTime );
       this.setTPlayers(this.dados.allplayers);
       // this.setPlayersWeapons();
       this.setActivePlayerStats();
@@ -75,7 +77,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["setTPlayers"]),
+    ...mapActions(["setTPlayers", "setTimeRound"]),
     setPlayersWeapons() {
       for (var [key, value] of Object.entries(this.players)) {
         if (value.team == "T") {
@@ -118,7 +120,7 @@ export default {
       }
     },
     showPlayerStats() {
-      console.log(this.dados);
+      console.log(this.dados.map);
     },
     fancyTimeFormat(duration) {
       // Hours, minutes and seconds
@@ -208,9 +210,11 @@ export default {
   width: 370px;
   min-height: 60px;
   max-height: 60px;
+  min-width: 370px;
+  max-width: 370px;
   /* background-color: orange; */
 }
-.backgroound-health-tr{
+.backgroound-health-tr {
   background-color: orange;
 }
 .background-tr-second-part {
