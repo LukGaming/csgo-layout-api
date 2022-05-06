@@ -52,6 +52,11 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 export default {
+   watch: {
+    teamsScoreFontSize(value) {
+      console.log(value);
+    },
+  },
   data() {
     return {
       dialog: false,
@@ -62,11 +67,7 @@ export default {
       setTeamsScoreFontSize: "layout_config/setTeamsScoreFontSize",
     }),
   },
-  watch: {
-    teamsScoreFontSize(value) {
-      console.log(value);
-    },
-  },
+ 
   computed: {
     ...mapGetters({
       roundTime: "game_data/roundTime",
@@ -90,6 +91,7 @@ export default {
       roundTimeMarginBottom: "layout_config/roundTimeMarginBottom",
       roundTimeMarginLeft: "layout_config/roundTimeMarginLeft",
     }),
+    
     switchTeamsScore: {
       get() {
         return this.teamsScoreFontSize;
