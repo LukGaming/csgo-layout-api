@@ -69,16 +69,19 @@ export default {
       this.roundTime = this.fancyTimeFormat(
         parseInt(Math.abs(this.dados.phase_countdowns.phase_ends_in))
       );
-      this.setTimeRound(this.roundTime );
-      this.mapStats(this.dados.map)
+      this.setTimeRound(this.roundTime);
+      this.mapStats(this.dados.map);
       this.setTPlayers(this.dados.allplayers);
-      // this.setPlayersWeapons();
       this.setActivePlayerStats();
       return data;
     },
   },
   methods: {
-    ...mapActions(["setTPlayers", "setTimeRound", "mapStats"]),
+    ...mapActions({
+      setTPlayers: "game_data/setTPlayers",
+      setTimeRound: "game_data/setTimeRound",
+      mapStats: "game_data/mapStats",
+    }),
     setPlayersWeapons() {
       for (var [key, value] of Object.entries(this.players)) {
         if (value.team == "T") {
@@ -121,7 +124,7 @@ export default {
       }
     },
     showPlayerStats() {
-      console.log(this.dados.map);
+      console.log(this.dados);
     },
     fancyTimeFormat(duration) {
       // Hours, minutes and seconds
@@ -150,9 +153,6 @@ export default {
   /* border: 2px solid #a53860; */
   font-size: 3rem;
   color: white;
-}
-.team_name{
-  font-size: 2rem;
 }
 .tr {
   position: absolute;
@@ -212,8 +212,8 @@ export default {
 }
 .background-tr-first-part {
   width: 370px;
-  min-height: 60px;
-  max-height: 60px;
+  min-height: 40px;
+  max-height: 40px;
   min-width: 370px;
   max-width: 370px;
   /* background-color: orange; */

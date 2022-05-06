@@ -1,12 +1,15 @@
 <template>
   <div>
-    <div class=" d-flex justify-space-between">
-      <div class="ct_score  mt-3 mr-3">
-        <div class="team_left team_name d-flex d-flex justify-space-around">
-          <div>
+    <div class="d-flex justify-space-between">
+      <div class="ct_score mt-3 mr-3">
+        <div
+          class="team_left team_name d-flex d-flex justify-space-around align-center"
+          :style="{ 'background-color': colorNameTeamT + '!important' }"
+        >
+          <div :style="{ 'font-size': teamsNameFontSize + 'rem  !important' }">
             {{ mapStats.team_t.name }}
           </div>
-          <div>
+          <div :style="{ 'font-size': teamsScoreFontSize + 'rem  !important' }">
             {{ mapStats.team_t.score }}
           </div>
         </div>
@@ -14,11 +17,14 @@
 
       <div class="roundTime">{{ roundTime }}</div>
       <div class="ct_score mt-3 ml-3">
-        <div class="team_right team_name d-flex d-flex justify-space-around">
-          <div>
+        <div
+          class="team_right team_name d-flex d-flex justify-space-around align-center"
+          :style="{ 'background-color': colorNameTeamCt + '!important' }"
+        >
+          <div :style="{ 'font-size': teamsScoreFontSize + 'rem  !important' }">
             {{ mapStats.team_ct.score }}
           </div>
-          <div>
+          <div :style="{ 'font-size': teamsNameFontSize + 'rem  !important' }">
             {{ mapStats.team_ct.name }}
           </div>
         </div>
@@ -30,7 +36,15 @@
 import { mapGetters } from "vuex";
 export default {
   computed: {
-    ...mapGetters(["roundTime", "mapStats"]),
+    ...mapGetters({
+      roundTime: "game_data/roundTime",
+      mapStats: "game_data/mapStats",
+      teste: "layout_config/teste",
+      colorNameTeamT: "layout_config/colorNameTeamT",
+      colorNameTeamCt: "layout_config/colorNameTeamCt",
+      teamsNameFontSize: "layout_config/teamsNameFontSize",
+      teamsScoreFontSize: "layout_config/teamsScoreFontSize",
+    }),
   },
 };
 </script>
@@ -44,8 +58,5 @@ export default {
   background-color: orange;
   width: 400px;
   border-radius: 0px 10px 10px 0px;
-}
-.ct_score {
-  font-size: 2rem;
 }
 </style>

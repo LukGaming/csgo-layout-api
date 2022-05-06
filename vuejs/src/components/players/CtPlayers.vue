@@ -4,34 +4,36 @@
       <div
         v-for="player in ctPlayers"
         :key="player.index"
-        class="mb-1"
         :class="{
           player_dead: player.state.health === 0,
           player: player.state.health > 0,
         }"
+        :style="{ 'margin-bottom': borderBottomBetweenPlayers + 'px' }"
       >
         <v-row>
           <v-col class="d-flex flex-row-reverse">
-            <div class="backgroound-health-ct" :style="{ width: player.state.health+'%' }">
+            <div
+              class="backgroound-health-ct"
+              :style="{
+                width: player.state.health + '%',
+                'background-color': ctLifeColor + '!important',
+              }"
+            >
               <div
                 class="d-flex float-right life-name-weapon justify-content-around line-one background-ct-first-part"
               >
                 <div class="d-flex flex-row-reverse background-ct-first-part">
-                  
                   <v-col cols="2">
-                    <div
-                      class="life"
-                      v-if="player.state.health > 0"
-                    >
+                    <div class="life" v-if="player.state.health > 0">
                       {{ player.state.health }}
                     </div>
                   </v-col>
-                  <v-col cols="2"
-                    ><div class="name" >
+                  <v-col cols="4 mr-5" style="white-space: nowrap"
+                    ><div class="name">
                       {{ player.name }}
                     </div></v-col
                   >
-                  <v-col cols="8">
+                  <v-col cols="6">
                     <div class="flex-row-reverse d-flex justify-space-around">
                       <!-- <img
                     v-if="player.knife"
@@ -61,15 +63,14 @@
             </div>
           </v-col>
         </v-row>
-
         <div
           class="flex-row-reverse d-flex justify-space-around background-ct-second-part"
         >
           <div class="money mt-1">$ {{ player.state.money }}</div>
           <div class="d-flex justify-space-around mt-1">
-            <div class="kills">$ {{ player.match_stats.kills }}</div>
+            <div class="kills">K {{ player.match_stats.kills }}</div>
             <div class="kills">-</div>
-            <div class="deaths">$ {{ player.match_stats.deaths }}</div>
+            <div class="deaths">D {{ player.match_stats.deaths }}</div>
           </div>
           <div class="d-flex justify-space-around grenades">
             <div v-for="weapon in player.weapons" :key="weapon.index">
@@ -126,14 +127,19 @@
 import { mapGetters } from "vuex";
 export default {
   computed: {
-    ...mapGetters(["ctPlayers", "icons"]),
+    ...mapGetters({
+      ctPlayers: "game_data/ctPlayers",
+      icons: "game_data/icons",
+      ctLifeColor: "layout_config/ctLifeColor",
+      borderBottomBetweenPlayers: "layout_config/borderBottomBetweenPlayers",
+    }),
   },
 };
 </script>
 <style>
 .background-ct-first-part {
-  min-height: 60px;
-  max-height: 60px;
+  min-height: 40px;
+  max-height: 40px;
   width: 370px;
 }
 .background-ct-second-part {

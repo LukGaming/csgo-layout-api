@@ -4,22 +4,29 @@
       <div
         v-for="player in tPlayers"
         :key="player.index"
-        class="my-1"
         :class="{
           player_dead: player.state.health === 0,
           player: player.state.health > 0,
         }"
+        :style="{ 'margin-bottom': borderBottomBetweenPlayers + 'px' }"
       >
+        
         <v-row>
           <v-col>
-            <div class="backgroound-health-tr " :style="{width: player.state.health+'%'}">
+            <div
+              class="backgroound-health-tr"
+              :style="{
+                width: player.state.health + '%',
+                'background-color': tLifeColor + '!important',
+              }"
+            >
               <div
                 class="life-name-weapon d-flex justify-content-around line-one background-tr-first-part"
               >
                 <v-col cols="2">
                   <div class="life">{{ player.state.health }}</div>
                 </v-col>
-                <v-col cols="3"
+                <v-col cols="3" style="white-space: nowrap"
                   ><div class="name">{{ player.name }}</div></v-col
                 >
                 <v-col cols="7">
@@ -54,9 +61,9 @@
         <div class="d-flex justify-space-around background-tr-second-part">
           <div class="money mt-1">$ {{ player.state.money }}</div>
           <div class="d-flex justify-space-around mt-1">
-            <div class="kills">$ {{ player.match_stats.kills }}</div>
+            <div class="kills">K {{ player.match_stats.kills }}</div>
             <div class="kills">-</div>
-            <div class="deaths">$ {{ player.match_stats.deaths }}</div>
+            <div class="deaths">D {{ player.match_stats.deaths }}</div>
           </div>
           <div class="d-flex justify-space-around grenades">
             <div v-for="weapon in player.weapons" :key="weapon.index">
@@ -114,14 +121,18 @@ import { mapGetters } from "vuex";
 
 export default {
   computed: {
-    ...mapGetters(["tPlayers", "icons"]),
+    ...mapGetters({
+      tPlayers: "game_data/tPlayers",
+      icons: "game_data/icons",
+      tLifeColor: "layout_config/tLifeColor",
+      borderBottomBetweenPlayers: "layout_config/borderBottomBetweenPlayers",
+    }),
   },
 };
 </script>
 <style>
 .tr_background_health {
   z-index: 2;
-  background-color: red !important;
   width: 300px;
   height: 320px;
 }
