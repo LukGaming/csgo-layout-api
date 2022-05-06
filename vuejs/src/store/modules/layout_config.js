@@ -7,20 +7,20 @@ export const layout_config = {
     colorNameTeamCt: 'blue',
     colorNameTeamT: 'orange',
     teamsNameFontSize: '2',
-    teamsScoreFontSize: '3',
+    teamsScoreFontSize: '2',
     borderTeamNameRightTr: 0,
-    borderTeamNameTopTr: 10,
+    borderTeamNameTopTr: 5,
     borderTeamNameBottomTr: 0,
-    borderTeamNameLeftTr: 10,
+    borderTeamNameLeftTr: 5,
     borderTeamNameRightCt: 10,
     borderTeamNameTopCt: 0,
     borderTeamNameBottomCt: 10,
     borderTeamNameLeftCt: 0,
-    roundTimeFontSize: 3,
+    roundTimeFontSize: 2,
     roundTimeMarginTop: 15,
-    roundTimeMarginRight: 20,
+    roundTimeMarginRight: 0,
     roundTimeMarginBottom: 0,
-    roundTimeMarginLeft: 20
+    roundTimeMarginLeft: 0
   },
   getters: {
     roundTimeMarginTop (state) {
@@ -85,9 +85,18 @@ export const layout_config = {
       return state.teamsNameFontSize
     },
     teamsScoreFontSize (state) {
-      return state.teamsScoreFontSize
+      return localStorage.getItem('teamsScoreFontSize') ?  localStorage.getItem('teamsScoreFontSize') : state.teamsScoreFontSize
     }
   },
-  actions: {},
-  mutations: {}
+  actions: {
+    setTeamsScoreFontSize ({ commit }, payload) {
+      localStorage.setItem('teamsScoreFontSize', payload)
+      commit('setTeamsScoreFontSize', payload)
+    }
+  },
+  mutations: {
+    setTeamsScoreFontSize (state, payload) {
+      state.teamsScoreFontSize = payload
+    }
+  }
 }

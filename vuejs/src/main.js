@@ -3,6 +3,7 @@ import App from './App.vue'
 import vuetify from './plugins/vuetify'
 import store from './store'
 import VueSocketIO from 'vue-socket.io'
+import router from '../src/router'
 Vue.use(
   new VueSocketIO({
     debug: false,
@@ -12,10 +13,12 @@ Vue.use(
       actionPrefix: 'SOCKET_',
       mutationPrefix: 'SOCKET_'
     }
-  })
+  }),
+  
 )
 Vue.config.productionTip = false
 new Vue({
+  router,
   store,
   vuetify,
   render: h => h(App)
