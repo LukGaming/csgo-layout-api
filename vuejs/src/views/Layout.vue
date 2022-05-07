@@ -24,29 +24,9 @@ export default {
   name: "Layout",
   components: { CtPlayers, TPlayers, GameTopResults },
   created() {
-    if (!localStorage.getItem("first_access")) {
-      localStorage.setItem("first_access", true);
-      localStorage.setItem("tLifeColor", "testeeee");
-      localStorage.setItem("ctLifeColor", "blue");
-      localStorage.setItem("borderBottomBetweenPlayers", 4);
-      localStorage.setItem("colorNameTeamCt", "blue");
-      localStorage.setItem("colorNameTeamT", "orange");
-      localStorage.setItem("teamsNameFontSize", "2");
-      localStorage.setItem("teamsScoreFontSize", "2");
-      localStorage.setItem("borderTeamNameRightTr", 0);
-      localStorage.setItem("borderTeamNameTopTr", 5);
-      localStorage.setItem("borderTeamNameBottomTr", 0);
-      localStorage.setItem("borderTeamNameLeftTr", 5);
-      localStorage.setItem("borderTeamNameRightCt", 10);
-      localStorage.setItem("borderTeamNameTopCt", 0);
-      localStorage.setItem("borderTeamNameBottomCt", 10);
-      localStorage.setItem("borderTeamNameLeftCt", 0);
-      localStorage.setItem("roundTimeFontSize", 2);
-      localStorage.setItem("roundTimeMarginTop", 15);
-      localStorage.setItem("roundTimeMarginRight", 0);
-      localStorage.setItem("roundTimeMarginBottom", 0);
-      localStorage.setItem("roundTimeMarginLeft", 0);
-    }
+    this.$http
+      .get("layout_config")
+      .then((res) => this.getLayoutConfigFromDataBase(res.data[0]));
   },
   data() {
     return {
@@ -86,6 +66,7 @@ export default {
       setTPlayers: "game_data/setTPlayers",
       setTimeRound: "game_data/setTimeRound",
       mapStats: "game_data/mapStats",
+      getLayoutConfigFromDataBase: "layout_config/getLayoutConfigFromDataBase",
     }),
     setPlayersWeapons() {
       for (var [key, value] of Object.entries(this.players)) {

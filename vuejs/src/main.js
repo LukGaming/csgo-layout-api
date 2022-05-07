@@ -4,7 +4,7 @@ import vuetify from './plugins/vuetify'
 import store from './store'
 import VueSocketIO from 'vue-socket.io'
 import router from '../src/router'
-
+import './plugins/axios'
 Vue.use(
   new VueSocketIO({
     debug: false,
@@ -16,7 +16,6 @@ Vue.use(
     }
   })
 )
-
 Vue.config.productionTip = false
 new Vue({
   router,

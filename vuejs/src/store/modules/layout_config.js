@@ -89,19 +89,57 @@ export const layout_config = {
     }
   },
   actions: {
+    getLayoutConfigFromDataBase ({ commit }, payload) {
+      for (var [key, value] of Object.entries(payload)) {
+        commit('setLayoutConfigValue', { chave: key, valor: value })
+      }
+    },
     setTeamsScoreFontSize ({ commit }, payload) {
       commit('setTeamsScoreFontSize', payload)
     },
-    setTLifeColor({commit}, payload){
+    setTLifeColor ({ commit }, payload) {
       commit('setTLifeColor', payload)
+    },
+    setCtLifeColor ({ commit }, payload) {
+      commit('setCtLifeColor', payload)
+    },
+    setTeamsNameFontSize ({ commit }, payload) {
+      commit('setTeamsNameFontSize', payload)
+    },
+    setBorderBottomBetweenPlayers ({ commit }, payload) {
+      commit('setBorderBottomBetweenPlayers', payload)
+    },
+    setColorNameTeamT ({ commit }, payload) {
+      commit('setColorNameTeamT', payload)
+    },
+    setColorNameTeamCt ({ commit }, payload) {
+      commit('setColorNameTeamCt', payload)
     }
   },
   mutations: {
+    setLayoutConfigValue (state, payload) {
+      state[payload.chave] = payload.valor
+    },
     setTeamsScoreFontSize (state, payload) {
       state.teamsScoreFontSize = payload
     },
+    setTeamsNameFontSize (state, payload) {
+      state.teamsNameFontSize = payload
+    },
     setTLifeColor (state, payload) {
       state.tLifeColor = payload
+    },
+    setCtLifeColor (state, payload) {
+      state.ctLifeColor = payload
+    },
+    setBorderBottomBetweenPlayers (state, payload) {
+      state.borderBottomBetweenPlayers = payload
+    },
+    setColorNameTeamT (state, payload) {
+      state.colorNameTeamT = payload
+    },
+    setColorNameTeamCt (state, payload) {
+      state.colorNameTeamCt = payload
     }
   }
 }
