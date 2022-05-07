@@ -15,12 +15,12 @@
   .player {
     border: 2px solid black;
     width: 370px;
-    opacity: 0.9;
+    /* opacity: 0.9;\ */
   }
   .player_dead {
     border: 2px solid black;
     width: 300px;
-    opacity: 0.9;
+    /* opacity: 0.9; */
   }
   .line-one {
     /* border-bottom: 2px solid #a53860; */
