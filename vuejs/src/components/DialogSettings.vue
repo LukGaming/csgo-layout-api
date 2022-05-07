@@ -7,7 +7,6 @@
             <v-icon dark> mdi-wrench </v-icon>
           </v-btn>
         </template>
-
         <v-card dark>
           <v-card-title> Alterar Configurações do Layout </v-card-title>
           <v-card-text dark>
