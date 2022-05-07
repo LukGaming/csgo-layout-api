@@ -1,7 +1,7 @@
 export const layout_config = {
   namespaced: true,
   state: {
-    tLifeColor: 'orange',
+    tLifeColor: '#0c4396',
     ctLifeColor: '#0c4396',
     borderBottomBetweenPlayers: 4,
     colorNameTeamCt: '#0c4396',
@@ -23,8 +23,8 @@ export const layout_config = {
     roundTimeMarginLeft: 0
   },
   getters: {
-    roundTimeMarginTop () {
-      return localStorage.setItem('roundTimeMarginTop', 15)
+    roundTimeMarginTop (state) {
+      return state.roundTimeMarginTop
     },
     roundTimeMarginRight (state) {
       return state.roundTimeMarginRight
@@ -66,15 +66,14 @@ export const layout_config = {
     borderTeamName (state) {
       return state.borderTeamName
     },
-    tLifeColor () {
-      return localStorage.getItem('tLifeColor')
+    tLifeColor (state) {
+      return state.tLifeColor
     },
     ctLifeColor (state) {
       return state.ctLifeColor
     },
     borderBottomBetweenPlayers (state) {
       return state.borderBottomBetweenPlayers
-      // localStorage.getItem('borderBottomBetweenPlayers')
     },
     colorNameTeamCt (state) {
       return state.colorNameTeamCt
@@ -86,15 +85,12 @@ export const layout_config = {
       return state.teamsNameFontSize
     },
     teamsScoreFontSize (state) {
-      if (localStorage.getItem('teamsScoreFontSize')) {
-        return JSON.parse(localStorage.getItem('teamsScoreFontSize'))
-      }
       return state.teamsScoreFontSize
     }
   },
   actions: {
     setTeamsScoreFontSize ({ commit }, payload) {
-      localStorage.setItem('teamsScoreFontSize', payload)
+      console.log(payload)
       commit('setTeamsScoreFontSize', payload)
     }
   },

@@ -27,13 +27,11 @@
               step="0.1"
               thumb-label
             ></v-slider>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.
+            <v-color-picker
+              v-model="colorPicker"
+              dot-size="25"
+              swatches-max-height="200"
+            ></v-color-picker>
           </v-card-text>
 
           <v-divider></v-divider>
@@ -52,7 +50,7 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 export default {
-   watch: {
+  watch: {
     teamsScoreFontSize(value) {
       console.log(value);
     },
@@ -67,7 +65,7 @@ export default {
       setTeamsScoreFontSize: "layout_config/setTeamsScoreFontSize",
     }),
   },
- 
+
   computed: {
     ...mapGetters({
       roundTime: "game_data/roundTime",
@@ -90,14 +88,23 @@ export default {
       roundTimeMarginRight: "layout_config/roundTimeMarginRight",
       roundTimeMarginBottom: "layout_config/roundTimeMarginBottom",
       roundTimeMarginLeft: "layout_config/roundTimeMarginLeft",
+      tLifeColor: "layout_config/tLifeColor",
+      ctLifeColor: "layout_config/ctLifeColor",
     }),
-    
     switchTeamsScore: {
       get() {
         return this.teamsScoreFontSize;
       },
       set(value) {
         this.setTeamsScoreFontSize(value);
+      },
+    },
+    colorPicker: {
+      get() {
+        return this.tLifeColor;
+      },
+      set(value) {
+        console.log(value);
       },
     },
   },
