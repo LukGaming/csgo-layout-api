@@ -9,15 +9,14 @@
         </template>
 
         <v-card dark>
-          <v-card-title
-            class="text-h5 grey lighten-2"
-            style="background-color: black"
-          >
-            Alterar Configurações do Layout
-          </v-card-title>
+          <v-card-title> Alterar Configurações do Layout </v-card-title>
           <v-card-text dark>
-            <input type="number" name="" id="" />
+            <v-divider></v-divider>
+            <div class="d-flex justify-center mt-10">
+              <h1>Configuração do Placar</h1>
+            </div>
             <v-slider
+              class="my-10"
               v-model="switchTeamsScore"
               color="orange"
               label="Tamanho da fonte do placar dos times"
@@ -27,11 +26,39 @@
               step="0.1"
               thumb-label
             ></v-slider>
-            <v-color-picker
-              v-model="colorPicker"
-              dot-size="25"
-              swatches-max-height="200"
-            ></v-color-picker>
+            <v-divider></v-divider>
+            <div class="d-flex justify-center my-10">
+              <h1>Configuração dos times</h1>
+            </div>
+            <div class="d-flex justify-content-between">
+              <div class="text-h4 mr-10 mt-2">Cor do Tr</div>
+              <v-text-field
+                v-model="colorPicker"
+                hide-details
+                class="ma-0 pa-0"
+                solo
+                style="max-width: 200px"
+              >
+                <template v-slot:append>
+                  <v-menu
+                    v-model="menu"
+                    top
+                    nudge-bottom="105"
+                    nudge-left="16"
+                    :close-on-content-click="false"
+                  >
+                    <template v-slot:activator="{ on }">
+                      <div :style="swatchStyle" v-on="on" />
+                    </template>
+                    <v-card>
+                      <v-card-text class="pa-0">
+                        <v-color-picker v-model="colorPicker" flat />
+                      </v-card-text>
+                    </v-card>
+                  </v-menu>
+                </template>
+              </v-text-field>
+            </div>
           </v-card-text>
 
           <v-divider></v-divider>
@@ -57,12 +84,14 @@ export default {
   },
   data() {
     return {
-      dialog: false,
+      dialog: true,
+      menu: false,
     };
   },
   methods: {
     ...mapActions({
       setTeamsScoreFontSize: "layout_config/setTeamsScoreFontSize",
+      setTLifeColor: "layout_config/setTLifeColor",
     }),
   },
 
@@ -91,6 +120,17 @@ export default {
       tLifeColor: "layout_config/tLifeColor",
       ctLifeColor: "layout_config/ctLifeColor",
     }),
+    swatchStyle() {
+      const { colorPicker, menu } = this;
+      return {
+        backgroundColor: colorPicker,
+        cursor: "pointer",
+        height: "30px",
+        width: "30px",
+        borderRadius: menu ? "50%" : "4px",
+        transition: "border-radius 200ms ease-in-out",
+      };
+    },
     switchTeamsScore: {
       get() {
         return this.teamsScoreFontSize;
@@ -104,7 +144,7 @@ export default {
         return this.tLifeColor;
       },
       set(value) {
-        console.log(value);
+        this.setTLifeColor(value);
       },
     },
   },

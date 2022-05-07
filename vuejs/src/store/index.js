@@ -7,7 +7,6 @@ const vuexLocal = new VuexPersistence({
   storage: window.localStorage,
   reducer: (state) => ({ layout_config: state.layout_config }) 
 })
-
 import { game_data } from './modules/game_data'
 import { layout_config } from './modules/layout_config'
 export default new Vuex.Store({

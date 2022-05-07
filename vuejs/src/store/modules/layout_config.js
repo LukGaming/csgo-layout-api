@@ -90,13 +90,18 @@ export const layout_config = {
   },
   actions: {
     setTeamsScoreFontSize ({ commit }, payload) {
-      console.log(payload)
       commit('setTeamsScoreFontSize', payload)
+    },
+    setTLifeColor({commit}, payload){
+      commit('setTLifeColor', payload)
     }
   },
   mutations: {
     setTeamsScoreFontSize (state, payload) {
       state.teamsScoreFontSize = payload
+    },
+    setTLifeColor (state, payload) {
+      state.tLifeColor = payload
     }
   }
 }
