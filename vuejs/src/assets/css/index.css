@@ -2,100 +2,104 @@
     background-color: rgba(0, 0, 0, 1);
     color: white;
     overflow: hidden;
-  }
-  .roundTime {
+}
+.roundTime {
     /* border: 2px solid #a53860; */
     /* font-size: 3rem; */
     /* color: white; */
-  }
-  .tr {
+}
+.tr {
     position: absolute;
     bottom: 0;
-  }
-  .player {
+}
+.player {
     border: 2px solid black;
     width: 370px;
     /* opacity: 0.9;\ */
-  }
-  .player_dead {
+}
+.player_dead {
     border: 2px solid black;
     width: 300px;
     /* opacity: 0.9; */
-  }
-  .line-one {
+}
+.line-one {
     /* border-bottom: 2px solid #a53860; */
-  }
-  .grenades {
-  }
-  .weapon {
+}
+.grenades {
+}
+.weapon {
     width: 50px;
     height: 20px;
-  }
-  .granade_active {
+}
+.granade_active {
     width: 10px;
     height: 15px;
-  }
-  .knife {
+}
+.knife {
     width: 40px;
     height: 15px;
-  }
-  .rotate {
+}
+.rotate {
     transform: rotateY(180deg);
-  }
-  .pistol {
+}
+.pistol {
     width: 40px;
     height: 15px;
-  }
-  .superRifle {
+}
+.superRifle {
     width: 40%;
-  }
-  .active_player {
+}
+.active_player {
     position: absolute;
     background: #063;
     bottom: 0px;
     left: 50%;
-  }
-  .ct {
+}
+.ct {
     position: absolute;
     bottom: 0;
     right: 0;
-  }
-  .player_avatar {
+}
+.player_avatar {
+    position: fixed;
+    bottom: 102px;
+    left: 34.2%;
     width: 100px;
-    border-radius: 50%;
-  }
-  .background-tr-first-part {
+    border-radius: 10%;
+    border: 2px solid red;
+}
+.background-tr-first-part {
     width: 370px;
     min-height: 40px;
     max-height: 40px;
     min-width: 370px;
     max-width: 370px;
     /* background-color: orange; */
-  }
-  .backgroound-health-tr {
+}
+.backgroound-health-tr {
     background-color: orange;
-  }
-  .background-tr-second-part {
+}
+.background-tr-second-part {
     background-color: black;
     min-height: 30px;
     max-height: 30px;
-  }
-  .grenadeIsActive {
+}
+.grenadeIsActive {
     -webkit-filter: invert(100%) !important;
-  }
-  .smokeGrenade {
+}
+.smokeGrenade {
     width: 10px;
     -webkit-filter: invert(50%);
-  }
-  .flashbang {
+}
+.flashbang {
     width: 20px;
     -webkit-filter: invert(50%);
-  }
-  .hegrenade {
+}
+.hegrenade {
     -webkit-filter: invert(50%);
     width: 15px;
-  }
-  .molotov {
+}
+.molotov {
     width: 15px;
     -webkit-filter: invert(50%);
-  }
+}

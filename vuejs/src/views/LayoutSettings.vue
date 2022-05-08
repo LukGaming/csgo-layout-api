@@ -1,18 +1,14 @@
 <template>
   <div>
-    <div style="overflow: auto">
-      <img
-        src="../assets/game_images/mirage.png"
-        alt=""
-        class="background-game"
-      />
-        <CtPlayers />
-        <TPlayers />
+    <div>
+      <CtPlayers />
+      <TPlayers />
       <div class="mt-2" style="position: absolute; top: 0; width: 100%">
         <div class="d-flex justify-center">
           <GameTopResults />
         </div>
       </div>
+      <PlayerAvatar />
       <div class="dialog_options">
         <DialogSettings />
       </div>
@@ -26,9 +22,16 @@ import CtPlayers from "../components/players/CtPlayers.vue";
 import TPlayers from "../components/players/TPlayers.vue";
 import GameTopResults from "../components/players/GameTopResults.vue";
 import DialogSettings from "../components/DialogSettings.vue";
+import PlayerAvatar from "../components/players/PlayerAvatar.vue";
 
 export default {
-  components: { CtPlayers, TPlayers, GameTopResults, DialogSettings },
+  components: {
+    CtPlayers,
+    TPlayers,
+    GameTopResults,
+    DialogSettings,
+    PlayerAvatar,
+  },
   methods: {
     ...mapActions({
       setTPlayers: "game_data/setTPlayers",

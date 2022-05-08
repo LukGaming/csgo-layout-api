@@ -1,11 +1,6 @@
 <template>
   <div>
-    <div class="d-flex justify-center" style="margin-top: 50px">
-      <img
-        class="player_avatar"
-        src="https://avatars.cloudflare.steamstatic.com/c5e3787f0f85db45ef18837d7092aa470dba6f63_full.jpg"
-        alt=""
-      />
+    <div class="d-flex justify-center">
     </div>
     <v-row class="mb-2" style="background-color: green">
       <v-col cols="12" class="d-flex justify-space-around">
