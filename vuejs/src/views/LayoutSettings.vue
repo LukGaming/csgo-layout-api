@@ -9,6 +9,11 @@
         </div>
       </div>
       <PlayerAvatar />
+      <div style="width: 100%; position: absolute; bottom: 0">
+        <div class="d-flex justify-space-around">
+          <ActivePlayer />
+        </div>
+      </div>
       <div class="dialog_options">
         <DialogSettings />
       </div>
@@ -23,6 +28,7 @@ import TPlayers from "../components/players/TPlayers.vue";
 import GameTopResults from "../components/players/GameTopResults.vue";
 import DialogSettings from "../components/DialogSettings.vue";
 import PlayerAvatar from "../components/players/PlayerAvatar.vue";
+import ActivePlayer from "../components/players/ActivePlayer.vue";
 
 export default {
   components: {
@@ -31,7 +37,8 @@ export default {
     GameTopResults,
     DialogSettings,
     PlayerAvatar,
-  },
+    ActivePlayer
+},
   methods: {
     ...mapActions({
       setTPlayers: "game_data/setTPlayers",

@@ -19,11 +19,29 @@ export const layout_avatar_config = {
     actions: {
         setAvatarWidth ({ commit }, payload) {
             commit('setAvatarWidth', payload)
+        },
+        setAvatarLeft ({ commit }, payload) {
+            commit('setAvatarLeft', payload)
+        },
+        setAvatarTop ({ commit }, payload) {
+            commit('setAvatarTop', payload)
+        },
+        setAvatarConfigFromDataBase ({ commit }, payload) {
+                commit('setAvatarConfigFromDataBase', payload)
         }
     },
     mutations: {
         setAvatarWidth (state, payload) {
             state.avatar_config.width = payload
+        },
+        setAvatarLeft (state, payload) {
+            state.avatar_config.left = payload
+        },
+        setAvatarTop (state, payload) {
+            state.avatar_config.top = payload
+        },
+        setAvatarConfigFromDataBase (state, payload) {
+            state.avatar_config = payload
         }
     }
 }
