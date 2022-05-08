@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="">
     <div class="text-center">
       <v-dialog v-model="dialog" width="1000">
         <template v-slot:activator="{ on, attrs }">
@@ -169,6 +169,21 @@
             ></v-slider>
           </v-card-text>
           <v-divider></v-divider>
+          <div class="d-flex justify-center mt-10">
+            <h1>Configuração do Avatar</h1>
+          </div>
+          <v-slider
+            class="my-10"
+            v-model="switchAvatarWidth"
+            color="orange"
+            label="Tamanho do Avatar"
+            hint="Be honest"
+            min="0"
+            max="30"
+            step="0.1"
+            thumb-label
+          ></v-slider>
+
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="primary" text @click="saveLayoutConfigDataBase">
@@ -183,11 +198,6 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 export default {
-  watch: {
-    teamsScoreFontSize(value) {
-      console.log(value);
-    },
-  },
   data() {
     return {
       dialog: true,
@@ -207,6 +217,7 @@ export default {
         "layout_config/setBorderBottomBetweenPlayers",
       setColorNameTeamT: "layout_config/setColorNameTeamT",
       setColorNameTeamCt: "layout_config/setColorNameTeamCt",
+      setAvatarWidth: "layout_avatar_config/setAvatarWidth",
     }),
     saveLayoutConfigDataBase() {
       this.$http
@@ -261,8 +272,18 @@ export default {
       roundTimeMarginLeft: "layout_config/roundTimeMarginLeft",
       tLifeColor: "layout_config/tLifeColor",
       ctLifeColor: "layout_config/ctLifeColor",
+      avatar_config: "layout_avatar_config/avatar_config",
     }),
-
+    switchAvatarWidth: {
+      get() {
+        return this.avatar_config.width;
+      },
+      set(value) {
+        console.log(value);
+        this.setAvatarWidth(value);
+        // this.setColorNameTeamCt(value);
+      },
+    },
     swatchStyle() {
       const { colorPickerTr, menu } = this;
       return {
@@ -366,4 +387,8 @@ export default {
   },
 };
 </script>
-<style></style>
+<style>
+.bg-dialog {
+  /* background-color: rgba(0, 0, 0, 1) !important; */
+}
+</style>

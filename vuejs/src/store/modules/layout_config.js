@@ -20,7 +20,7 @@ export const layout_config = {
     roundTimeMarginTop: 15,
     roundTimeMarginRight: 0,
     roundTimeMarginBottom: 0,
-    roundTimeMarginLeft: 0
+    roundTimeMarginLeft: 0,
   },
   getters: {
     roundTimeMarginTop (state) {

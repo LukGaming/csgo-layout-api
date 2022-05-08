@@ -8,11 +8,13 @@ Vue.use(Vuex)
 //   reducer: (state) => ({ layout_config: state.layout_config }) 
 // })
 import { game_data } from './modules/game_data'
+import { layout_avatar_config } from './modules/layout_avatar_config'
 import { layout_config } from './modules/layout_config'
 export default new Vuex.Store({
   modules: {
     game_data: game_data,
-    layout_config: layout_config
+    layout_config: layout_config,
+    layout_avatar_config: layout_avatar_config
   },
   // plugins: [vuexLocal.plugin],
 })
