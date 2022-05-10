@@ -1,17 +1,20 @@
 <template>
   <div>
-    <div class="d-flex justify-center">
-    </div>
-    <v-row class="mb-2" style="background-color: green">
-      <v-col cols="12" class="d-flex justify-space-around">
-        <v-col cols="2">vida : 100</v-col>
-        <v-col cols="2">colete : true</v-col>
-        <v-col cols="2">kills : 10</v-col>
+    <v-row class="mb-2" style="background-color: green; height: 100px">
+      <div class="d-flex justify-space-around align-center">
+        <div class="mr-3">
+          <div class="d-flex justify-content-between align-center">
+            <img class="mr-3" src="../../assets/health.png" alt="" width="20" />
+            <div>100</div>
+          </div>
+        </div>
+        <div class="mr-3">colete : true</div>
+        <div class="mr-3">kills : 10</div>
 
-        <v-col cols="2">mortes : 10</v-col>
-        <v-col cols="2"> Munição: 30</v-col>
-        <v-col cols="2"> Total: 90</v-col>
-      </v-col>
+        <div class="mr-3">mortes : 10</div>
+        <div class="mr-3">Munição: 30</div>
+        <div class="mr-3">Total: 90</div>
+      </div>
     </v-row>
   </div>
 </template>

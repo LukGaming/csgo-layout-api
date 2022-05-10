@@ -1,23 +1,23 @@
 <template>
   <div>
     <div>
-      <v-btn
+      <!-- <v-btn
         color="red"
         @click="showPlayerStats"
         style="position: absolute; right: 0"
         >Mostrar Detalhes do jogador</v-btn
-      >
+      > -->
       <div class="d-flex justify-center mt-2">
         <GameTopResults />
       </div>
       <CtPlayers />
       <TPlayers />
-      <div style="width: 100%; position: absolute; bottom: 0">
+      <!-- <div style="width: 100%; position: absolute; bottom: 0">
         <div class="d-flex justify-space-around">
           <ActivePlayer />
         </div>
       </div>
-      <PlayerAvatar />
+      <PlayerAvatar /> -->
     </div>
   </div>
 </template>
@@ -26,16 +26,16 @@ import GameTopResults from "../components/players/GameTopResults.vue";
 import CtPlayers from "../components/players/CtPlayers.vue";
 import TPlayers from "../components/players/TPlayers.vue";
 import { mapActions } from "vuex";
-import ActivePlayer from "../components/players/ActivePlayer.vue";
-import PlayerAvatar from "../components/players/PlayerAvatar.vue";
+// import ActivePlayer from "../components/players/ActivePlayer.vue";
+// import PlayerAvatar from "../components/players/PlayerAvatar.vue";
 export default {
   name: "Layout",
   components: {
     CtPlayers,
     TPlayers,
     GameTopResults,
-    ActivePlayer,
-    PlayerAvatar,
+    // ActivePlayer,
+    // PlayerAvatar,
   },
   created() {
     this.$http
