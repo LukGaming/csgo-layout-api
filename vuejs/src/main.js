@@ -6,6 +6,9 @@ import VueSocketIO from 'vue-socket.io'
 import router from '../src/router'
 import './plugins/axios'
 import { Drag, Drop } from 'vue-drag-drop';
+import VueKonva from 'vue-konva';
+
+Vue.use(VueKonva);
  
 Vue.component('drag', Drag);
 Vue.component('drop', Drop);

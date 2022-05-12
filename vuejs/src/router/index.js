@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import Map from '../components/Map.vue'
 import Layout from '../views/Layout.vue'
 import LayoutSettings from '../views/LayoutSettings.vue'
 Vue.use(Router)
@@ -16,5 +17,10 @@ export default new Router({
       name: 'LayoutSettings',
       component: LayoutSettings
     },
+    {
+        path: '/map',
+        name: 'LayoutMap',
+        component: Map
+      },
   ]
 })

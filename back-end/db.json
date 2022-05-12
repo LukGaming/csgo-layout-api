@@ -23,10 +23,10 @@
       "roundTimeMarginBottom": 0,
       "roundTimeMarginLeft": 0,
       "avatar_config": {
-        "top": 732,
-        "left": 711,
+        "top": 792,
+        "left": 741,
         "border_radius": 1,
-        "width": 7.1,
+        "width": 3.4,
         "border_color": "red",
         "border_type": "solid",
         "border_size": 2

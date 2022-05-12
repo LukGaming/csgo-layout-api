@@ -51,7 +51,6 @@ export const game_data = {
       return state.ctPlayers
     },
     roundTime (state) {
-      console.log('Chegando aaqui')
       return state.roundTime
     },
     mapStats (state) {
@@ -149,6 +148,7 @@ export const game_data = {
       state.roundTime = payload
     },
     setTPlayers (state, payload) {
+        console.log(payload[0].forward)
       state.tPlayers = payload
     },
     setCtPlayers (state, payload) {
