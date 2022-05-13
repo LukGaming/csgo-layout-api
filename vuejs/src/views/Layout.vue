@@ -7,6 +7,13 @@
         style="position: absolute; right: 0"
         >Mostrar Detalhes do jogador</v-btn
       > -->
+      <v-stage :config="configKonva">
+        <v-layer>
+          <v-shape :config="test" ref="triangle"></v-shape>
+          <v-circle :config="configCircle"></v-circle>
+        </v-layer>
+      </v-stage>
+      <!-- <Map /> -->
       <div class="d-flex justify-center mt-2">
         <GameTopResults />
       </div>
@@ -25,7 +32,8 @@
 import GameTopResults from "../components/players/GameTopResults.vue";
 import CtPlayers from "../components/players/CtPlayers.vue";
 import TPlayers from "../components/players/TPlayers.vue";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
+// import Map from "../components/Map.vue";
 // import ActivePlayer from "../components/players/ActivePlayer.vue";
 // import PlayerAvatar from "../components/players/PlayerAvatar.vue";
 export default {
@@ -34,16 +42,48 @@ export default {
     CtPlayers,
     TPlayers,
     GameTopResults,
-    // ActivePlayer,
-    // PlayerAvatar,
+    // Map,
   },
   created() {
     this.$http
       .get("layout_config")
       .then((res) => this.getLayoutConfigFromDataBase(res.data[0]));
+    setTimeout(() => {
+      this.nodes = this.$refs.triangle.getNode();
+      //   let angle_to_move = -284.40000000000003;
+      this.nodes.rotation(this.correcao_de_angulo);
+    }, 1000);
   },
   data() {
     return {
+      correcao_de_angulo: -45,
+      nodes: null,
+      configKonva: {
+        x: 100,
+        y: 100,
+        width: 300,
+        height: 300,
+      },
+      configCircle: {
+        x: 100,
+        y: 100,
+        radius: 5,
+        fill: "red",
+      },
+      test: {
+        sceneFunc: function (context, shape) {
+          context.beginPath();
+          context.moveTo(0, 12);
+          context.lineTo(12, 0);
+          context.quadraticCurveTo(20, 20, 20, 20);
+          context.closePath();
+          context.fillStrokeShape(shape);
+        },
+        fill: "#00D2FF",
+        x: 100,
+        y: 100,
+        points: 0,
+      },
       dados: null,
       players: [],
       interaction: 0,
@@ -57,6 +97,9 @@ export default {
         remainingAmmo: null,
       },
     };
+  },
+  computed: {
+    ...mapGetters({ tPlayers: "game_data/tPlayers" }),
   },
   sockets: {
     connect: function () {},
@@ -75,6 +118,12 @@ export default {
       return data;
     },
   },
+  watch: {
+    tPlayers(value) {
+      this.setNodePosition(value[0].position)
+      this.rotateNode(value[0].forward.split(",")[0]);
+    },
+  },
   methods: {
     ...mapActions({
       setTPlayers: "game_data/setTPlayers",
@@ -82,6 +131,15 @@ export default {
       mapStats: "game_data/mapStats",
       getLayoutConfigFromDataBase: "layout_config/getLayoutConfigFromDataBase",
     }),
+    setNodePosition(payload){
+        console.log(payload.split(","))
+    },
+    rotateNode(payload) {
+        console.log(payload)
+        let angle_to_move = (360 * (+payload)) + (this.correcao_de_angulo ) 
+        console.log(Math.abs(angle_to_move))
+      this.nodes.rotation(Math.abs(angle_to_move));
+    },
     setPlayersWeapons() {
       for (var [key, value] of Object.entries(this.players)) {
         if (value.team == "T") {
