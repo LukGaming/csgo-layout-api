@@ -52,11 +52,14 @@ export default {
       this.nodes = this.$refs.triangle.getNode();
       //   let angle_to_move = -284.40000000000003;
       this.nodes.rotation(this.correcao_de_angulo);
-    }, 1000);
+    }, 2000);
+    setTimeout(() => {
+      this.rotateNode();
+    }, 4000);
   },
   data() {
     return {
-      correcao_de_angulo: -45,
+      correcao_de_angulo: 225,
       nodes: null,
       configKonva: {
         x: 100,
@@ -79,6 +82,7 @@ export default {
           context.closePath();
           context.fillStrokeShape(shape);
         },
+        rotationSnaps: [0, 90, 180, 270],
         fill: "#00D2FF",
         x: 100,
         y: 100,
@@ -120,7 +124,7 @@ export default {
   },
   watch: {
     tPlayers(value) {
-      this.setNodePosition(value[0].position)
+      this.setNodePosition(value[0].position);
       this.rotateNode(value[0].forward.split(",")[0]);
     },
   },
@@ -131,14 +135,18 @@ export default {
       mapStats: "game_data/mapStats",
       getLayoutConfigFromDataBase: "layout_config/getLayoutConfigFromDataBase",
     }),
-    setNodePosition(payload){
-        console.log(payload.split(","))
+    setNodePosition(payload) {
+      console.log(payload.split(","));
     },
     rotateNode(payload) {
-        console.log(payload)
-        let angle_to_move = (360 * (+payload)) + (this.correcao_de_angulo ) 
-        console.log(Math.abs(angle_to_move))
-      this.nodes.rotation(Math.abs(angle_to_move));
+      let angle_to_move = 360 * +payload + this.correcao_de_angulo;
+      console.log(Math.abs(angle_to_move));
+      this.nodes.rotation(
+        this.correcao_de_angulo + this.setDegreesWithSenAndCos(-0.82, -0.57)
+      );
+    },
+    setDegreesWithSenAndCos(x, y) {
+      return (Math.atan2(y, x) * 180) / Math.PI;
     },
     setPlayersWeapons() {
       for (var [key, value] of Object.entries(this.players)) {

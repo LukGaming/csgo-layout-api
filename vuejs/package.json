@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@socheatsok78/storybook-addon-vuetify": "^0.1.9",
+    "axios": "^0.27.2",
     "core-js": "^3.6.5",
     "konva": "^8.3.8",
     "socket.io": "^4.5.0",
