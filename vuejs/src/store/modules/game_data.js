@@ -148,7 +148,6 @@ export const game_data = {
       state.roundTime = payload
     },
     setTPlayers (state, payload) {
-        console.log(payload[0].forward)
       state.tPlayers = payload
     },
     setCtPlayers (state, payload) {

@@ -10,7 +10,7 @@
       <v-stage :config="configKonva">
         <v-layer>
           <v-shape :config="test" ref="triangle"></v-shape>
-          <v-circle :config="configCircle"></v-circle>
+          <v-circle :config="configCircle" ref="circle"></v-circle>
         </v-layer>
       </v-stage>
       <!-- <Map /> -->
@@ -49,9 +49,10 @@ export default {
       .get("layout_config")
       .then((res) => this.getLayoutConfigFromDataBase(res.data[0]));
     setTimeout(() => {
-      this.nodes = this.$refs.triangle.getNode();
+      this.triangleNode = this.$refs.triangle.getNode();
+      this.circleNode = this.$refs.circle.getNode()
       //   let angle_to_move = -284.40000000000003;
-      this.nodes.rotation(this.correcao_de_angulo);
+      this.triangleNode.rotation(this.correcao_de_angulo);
     }, 2000);
     setTimeout(() => {
       this.rotateNode();
@@ -59,25 +60,26 @@ export default {
   },
   data() {
     return {
-      correcao_de_angulo: 225,
-      nodes: null,
+      correcao_de_angulo: 225+90,
+      triangleNode: null,
+      circleNode: null,
       configKonva: {
-        x: 100,
-        y: 100,
-        width: 300,
-        height: 300,
+        x: 0,
+        y: 0,
+        width: 1920,
+        height: 1080,
       },
       configCircle: {
         x: 100,
         y: 100,
-        radius: 5,
+        radius: 20,
         fill: "red",
       },
       test: {
         sceneFunc: function (context, shape) {
           context.beginPath();
-          context.moveTo(0, 12);
-          context.lineTo(12, 0);
+          context.moveTo(0, 20);
+          context.lineTo(20, 0);
           context.quadraticCurveTo(20, 20, 20, 20);
           context.closePath();
           context.fillStrokeShape(shape);
@@ -103,7 +105,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters({ tPlayers: "game_data/tPlayers" }),
+    ...mapGetters({ ctPlayers: "game_data/ctPlayers" }),
   },
   sockets: {
     connect: function () {},
@@ -123,9 +125,16 @@ export default {
     },
   },
   watch: {
-    tPlayers(value) {
-      this.setNodePosition(value[0].position);
-      this.rotateNode(value[0].forward.split(",")[0]);
+    ctPlayers(value) {
+        let positionX = (Number(value[0].position.split(",")[0]) / 1)
+        let positionY = (Number(value[0].position.split(",")[1]) / 10)
+        console.log(positionX)
+        console.log(positionY)
+       this.circleNode.x(positionX)
+       this.circleNode.y(positionY)
+       this.triangleNode.x(positionX)
+       this.triangleNode.y(positionY)
+      this.rotateNode(value[0].forward.split(",")[0], value[0].forward.split(",")[1]);
     },
   },
   methods: {
@@ -135,14 +144,9 @@ export default {
       mapStats: "game_data/mapStats",
       getLayoutConfigFromDataBase: "layout_config/getLayoutConfigFromDataBase",
     }),
-    setNodePosition(payload) {
-      console.log(payload.split(","));
-    },
-    rotateNode(payload) {
-      let angle_to_move = 360 * +payload + this.correcao_de_angulo;
-      console.log(Math.abs(angle_to_move));
-      this.nodes.rotation(
-        this.correcao_de_angulo + this.setDegreesWithSenAndCos(-0.82, -0.57)
+    rotateNode(x, y) {
+      this.triangleNode.rotation(
+        this.correcao_de_angulo - this.setDegreesWithSenAndCos(x, y)
       );
     },
     setDegreesWithSenAndCos(x, y) {
