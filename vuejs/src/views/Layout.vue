@@ -7,7 +7,7 @@
         style="position: absolute; right: 0"
         >Mostrar Detalhes do jogador</v-btn
       > -->
-      <v-stage :config="configKonva">
+      <v-stage :config="configKonva" style="width: 200px; background-color: white">
         <v-layer>
           <v-shape :config="test" ref="triangle"></v-shape>
           <v-circle :config="configCircle" ref="circle"></v-circle>
@@ -50,7 +50,7 @@ export default {
       .then((res) => this.getLayoutConfigFromDataBase(res.data[0]));
     setTimeout(() => {
       this.triangleNode = this.$refs.triangle.getNode();
-      this.circleNode = this.$refs.circle.getNode()
+      this.circleNode = this.$refs.circle.getNode();
       //   let angle_to_move = -284.40000000000003;
       this.triangleNode.rotation(this.correcao_de_angulo);
     }, 2000);
@@ -60,27 +60,27 @@ export default {
   },
   data() {
     return {
-      correcao_de_angulo: 225+90,
+      correcao_de_angulo: 225 + 90,
       triangleNode: null,
       circleNode: null,
       configKonva: {
-        x: 0,
-        y: 0,
-        width: 1920,
-        height: 1080,
+        x: 10,
+        y: 10,
+        width: 200,
+        height: 200,
       },
       configCircle: {
         x: 100,
         y: 100,
-        radius: 20,
+        radius: 5,
         fill: "red",
       },
       test: {
         sceneFunc: function (context, shape) {
           context.beginPath();
-          context.moveTo(0, 20);
-          context.lineTo(20, 0);
-          context.quadraticCurveTo(20, 20, 20, 20);
+          context.moveTo(0, 5);
+          context.lineTo(5, 0);
+          context.quadraticCurveTo(5, 5, 5, 5);
           context.closePath();
           context.fillStrokeShape(shape);
         },
@@ -126,15 +126,20 @@ export default {
   },
   watch: {
     ctPlayers(value) {
-        let positionX = (Number(value[0].position.split(",")[0]) / 1)
-        let positionY = (Number(value[0].position.split(",")[1]) / 10)
-        console.log(positionX)
-        console.log(positionY)
-       this.circleNode.x(positionX)
-       this.circleNode.y(positionY)
-       this.triangleNode.x(positionX)
-       this.triangleNode.y(positionY)
-      this.rotateNode(value[0].forward.split(",")[0], value[0].forward.split(",")[1]);
+      let positionX = (Number(value[0].position.split(",")[0]) + 2000) / 15;
+      let positionY = Math.abs(
+        (Number(value[0].position.split(",")[1]) - 2000) / 15
+      );
+      console.log("X: " + positionX);
+      console.log("Y: " + positionY);
+      this.circleNode.x(positionX);
+      this.circleNode.y(positionY);
+      this.triangleNode.x(positionX);
+      this.triangleNode.y(positionY);
+      this.rotateNode(
+        value[0].forward.split(",")[0],
+        value[0].forward.split(",")[1]
+      );
     },
   },
   methods: {
