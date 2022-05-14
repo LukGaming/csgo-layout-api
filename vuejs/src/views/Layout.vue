@@ -10,24 +10,24 @@
       <div>
         <Map />
       </div>
-      <!-- <div class="d-flex justify-center mt-2">
+      <div class="d-flex justify-center mt-2">
         <GameTopResults />
       </div>
       <CtPlayers />
-      <TPlayers /> -->
+      <TPlayers />
       <!-- <div style="width: 100%; position: absolute; bottom: 0">
         <div class="d-flex justify-space-around">
           <ActivePlayer />
         </div>
-      </div>
-      <PlayerAvatar /> -->
+      </div> -->
+      <!-- <PlayerAvatar /> -->
     </div>
   </div>
 </template>
 <script>
-// import GameTopResults from "../components/players/GameTopResults.vue";
-// import CtPlayers from "../components/players/CtPlayers.vue";
-// import TPlayers from "../components/players/TPlayers.vue";
+import GameTopResults from "../components/players/GameTopResults.vue";
+import CtPlayers from "../components/players/CtPlayers.vue";
+import TPlayers from "../components/players/TPlayers.vue";
 import { mapActions, mapGetters } from "vuex";
 import Map from "../components/map/Map.vue";
 // import ActivePlayer from "../components/players/ActivePlayer.vue";
@@ -35,9 +35,9 @@ import Map from "../components/map/Map.vue";
 export default {
   name: "Layout",
   components: {
-    // CtPlayers,
-    // TPlayers,
-    // GameTopResults,
+    CtPlayers,
+    TPlayers,
+    GameTopResults,
     Map,
   },
   created() {
