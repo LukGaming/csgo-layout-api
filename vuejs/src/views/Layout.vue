@@ -7,12 +7,16 @@
         style="position: absolute; right: 0"
         >Mostrar Detalhes do jogador</v-btn
       > -->
-      <v-stage :config="configKonva" style="width: 200px; background-color: white">
+      <div>
+        <Map />
+      </div>
+      <!-- <img src="../assets/map_overpass.png" alt=""  style="position: fixed; top: 120px; width:280px; height: 345px;">
+      <v-stage :config="configKonva" >
         <v-layer>
           <v-shape :config="test" ref="triangle"></v-shape>
           <v-circle :config="configCircle" ref="circle"></v-circle>
         </v-layer>
-      </v-stage>
+      </v-stage> -->
       <!-- <Map /> -->
       <div class="d-flex justify-center mt-2">
         <GameTopResults />
@@ -33,7 +37,7 @@ import GameTopResults from "../components/players/GameTopResults.vue";
 import CtPlayers from "../components/players/CtPlayers.vue";
 import TPlayers from "../components/players/TPlayers.vue";
 import { mapActions, mapGetters } from "vuex";
-// import Map from "../components/Map.vue";
+import Map from "../components/map/Map.vue";
 // import ActivePlayer from "../components/players/ActivePlayer.vue";
 // import PlayerAvatar from "../components/players/PlayerAvatar.vue";
 export default {
@@ -42,7 +46,7 @@ export default {
     CtPlayers,
     TPlayers,
     GameTopResults,
-    // Map,
+    Map,
   },
   created() {
     this.$http
@@ -64,10 +68,10 @@ export default {
       triangleNode: null,
       circleNode: null,
       configKonva: {
-        x: 10,
-        y: 10,
-        width: 200,
-        height: 200,
+        x: 15,
+        y: 30,
+        width: 400,
+        height: 400,
       },
       configCircle: {
         x: 100,
@@ -126,12 +130,13 @@ export default {
   },
   watch: {
     ctPlayers(value) {
-      let positionX = (Number(value[0].position.split(",")[0]) + 2000) / 15;
+      let positionX =
+        Math.abs(Number(value[0].position.split(",")[0]) + 3000) / 15;
       let positionY = Math.abs(
-        (Number(value[0].position.split(",")[1]) - 2000) / 15
+        (Number(value[0].position.split(",")[1]) - 3000) / 15
       );
-      console.log("X: " + positionX);
-      console.log("Y: " + positionY);
+      console.log("X: " + Number(value[0].position.split(",")[0]));
+      console.log("Y: " + Number(value[0].position.split(",")[1]));
       this.circleNode.x(positionX);
       this.circleNode.y(positionY);
       this.triangleNode.x(positionX);
