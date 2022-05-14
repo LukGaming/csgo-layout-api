@@ -41,6 +41,9 @@ export const game_data = {
     icons: icons
   },
   getters: {
+    mapName(state){
+        return state.mapStats.name
+    },
     icons (state) {
       return state.icons
     },

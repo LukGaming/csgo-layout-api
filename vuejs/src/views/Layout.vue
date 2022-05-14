@@ -8,13 +8,13 @@
         >Mostrar Detalhes do jogador</v-btn
       > -->
       <div>
-        <Map />
+        <MapOverpass v-if="mapName === 'de_overpass'"/>
       </div>
-      <div class="d-flex justify-center mt-2">
+      <!-- <div class="d-flex justify-center mt-2">
         <GameTopResults />
       </div>
       <CtPlayers />
-      <TPlayers />
+      <TPlayers /> -->
       <!-- <div style="width: 100%; position: absolute; bottom: 0">
         <div class="d-flex justify-space-around">
           <ActivePlayer />
@@ -25,21 +25,21 @@
   </div>
 </template>
 <script>
-import GameTopResults from "../components/players/GameTopResults.vue";
-import CtPlayers from "../components/players/CtPlayers.vue";
-import TPlayers from "../components/players/TPlayers.vue";
+// import GameTopResults from "../components/players/GameTopResults.vue";
+// import CtPlayers from "../components/players/CtPlayers.vue";
+// import TPlayers from "../components/players/TPlayers.vue";
 import { mapActions, mapGetters } from "vuex";
-import Map from "../components/map/Map.vue";
+import MapOverpass from "../components/map/MapOverpass.vue";
 // import ActivePlayer from "../components/players/ActivePlayer.vue";
 // import PlayerAvatar from "../components/players/PlayerAvatar.vue";
 export default {
   name: "Layout",
   components: {
-    CtPlayers,
-    TPlayers,
-    GameTopResults,
-    Map,
-  },
+    // CtPlayers,
+    // TPlayers,
+    // GameTopResults,
+    MapOverpass
+},
   created() {
     this.$http
       .get("layout_config")
@@ -100,7 +100,10 @@ export default {
     };
   },
   computed: {
-    ...mapGetters({ ctPlayers: "game_data/ctPlayers" }),
+    ...mapGetters({
+      ctPlayers: "game_data/ctPlayers",
+      mapName: "game_data/mapName",
+    }),
   },
   sockets: {
     connect: function () {},
@@ -115,28 +118,9 @@ export default {
       this.setTimeRound(this.roundTime);
       this.mapStats(this.dados.map);
       this.setTPlayers(this.dados.allplayers);
-      this.setActivePlayerStats();
+    //   this.setActivePlayerStats();
       return data;
     },
-  },
-  watch: {
-    // ctPlayers(value) {
-    //   let positionX =
-    //     Math.abs(Number(value[0].position.split(",")[0]) + 3000) / 15;
-    //   let positionY = Math.abs(
-    //     (Number(value[0].position.split(",")[1]) - 3000) / 15
-    //   );
-    //   console.log("X: " + Number(value[0].position.split(",")[0]));
-    //   console.log("Y: " + Number(value[0].position.split(",")[1]));
-    //   this.circleNode.x(positionX);
-    //   this.circleNode.y(positionY);
-    //   this.triangleNode.x(positionX);
-    //   this.triangleNode.y(positionY);
-    //   this.rotateNode(
-    //     value[0].forward.split(",")[0],
-    //     value[0].forward.split(",")[1]
-    //   );
-    // },
   },
   methods: {
     ...mapActions({
@@ -145,58 +129,6 @@ export default {
       mapStats: "game_data/mapStats",
       getLayoutConfigFromDataBase: "layout_config/getLayoutConfigFromDataBase",
     }),
-    rotateNode(x, y) {
-      this.triangleNode.rotation(
-        this.correcao_de_angulo - this.setDegreesWithSenAndCos(x, y)
-      );
-    },
-    setDegreesWithSenAndCos(x, y) {
-      return (Math.atan2(y, x) * 180) / Math.PI;
-    },
-    setPlayersWeapons() {
-      for (var [key, value] of Object.entries(this.players)) {
-        if (value.team == "T") {
-          for (var [chave, valor] of Object.entries(value.weapons)) {
-            if (valor.type == "Knife") {
-              value.knife = valor.name;
-            }
-            if (valor.type == "Pistol") {
-              value.pistol = valor.name;
-            }
-            if (
-              valor.type == "Rifle" ||
-              valor.type == "SniperRifle" ||
-              valor.type == "Submachine Gun"
-            ) {
-              value.primary = valor.name;
-            }
-            chave;
-          }
-          this.t_players.push(value);
-        } else this.ct_players.push(value);
-        key;
-      }
-    },
-    setActivePlayerStats() {
-      for (var [chave, valor] of Object.entries(this.dados.player.weapons)) {
-        if (valor.type == "Rifle" || valor.type == "SniperRifle") {
-          this.active_player_stats.active_weapon = valor.name;
-          this.active_player_stats.actualAmmo = valor.ammo_clip;
-          this.active_player_stats.maximumAmmo = valor.ammo_clip_max;
-          this.active_player_stats.remainingAmmo = valor.ammo_reserve;
-        }
-        if (valor.type == "Pistol" || valor.type == "Submachine Gun") {
-          this.active_player_stats.active_weapon = valor.name;
-          this.active_player_stats.actualAmmo = valor.ammo_clip;
-          this.active_player_stats.maximumAmmo = valor.ammo_clip_max;
-          this.active_player_stats.remainingAmmo = valor.ammo_reserve;
-        }
-        chave;
-      }
-    },
-    showPlayerStats() {
-      console.log(this.dados);
-    },
     fancyTimeFormat(duration) {
       // Hours, minutes and seconds
       var hrs = ~~(duration / 3600);
