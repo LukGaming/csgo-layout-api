@@ -10,19 +10,11 @@
       <div>
         <Map />
       </div>
-      <!-- <img src="../assets/map_overpass.png" alt=""  style="position: fixed; top: 120px; width:280px; height: 345px;">
-      <v-stage :config="configKonva" >
-        <v-layer>
-          <v-shape :config="test" ref="triangle"></v-shape>
-          <v-circle :config="configCircle" ref="circle"></v-circle>
-        </v-layer>
-      </v-stage> -->
-      <!-- <Map /> -->
-      <div class="d-flex justify-center mt-2">
+      <!-- <div class="d-flex justify-center mt-2">
         <GameTopResults />
       </div>
       <CtPlayers />
-      <TPlayers />
+      <TPlayers /> -->
       <!-- <div style="width: 100%; position: absolute; bottom: 0">
         <div class="d-flex justify-space-around">
           <ActivePlayer />
@@ -33,9 +25,9 @@
   </div>
 </template>
 <script>
-import GameTopResults from "../components/players/GameTopResults.vue";
-import CtPlayers from "../components/players/CtPlayers.vue";
-import TPlayers from "../components/players/TPlayers.vue";
+// import GameTopResults from "../components/players/GameTopResults.vue";
+// import CtPlayers from "../components/players/CtPlayers.vue";
+// import TPlayers from "../components/players/TPlayers.vue";
 import { mapActions, mapGetters } from "vuex";
 import Map from "../components/map/Map.vue";
 // import ActivePlayer from "../components/players/ActivePlayer.vue";
@@ -43,24 +35,24 @@ import Map from "../components/map/Map.vue";
 export default {
   name: "Layout",
   components: {
-    CtPlayers,
-    TPlayers,
-    GameTopResults,
+    // CtPlayers,
+    // TPlayers,
+    // GameTopResults,
     Map,
   },
   created() {
     this.$http
       .get("layout_config")
       .then((res) => this.getLayoutConfigFromDataBase(res.data[0]));
-    setTimeout(() => {
-      this.triangleNode = this.$refs.triangle.getNode();
-      this.circleNode = this.$refs.circle.getNode();
-      //   let angle_to_move = -284.40000000000003;
-      this.triangleNode.rotation(this.correcao_de_angulo);
-    }, 2000);
-    setTimeout(() => {
-      this.rotateNode();
-    }, 4000);
+    // setTimeout(() => {
+    //   this.triangleNode = this.$refs.triangle.getNode();
+    //   this.circleNode = this.$refs.circle.getNode();
+    //   //   let angle_to_move = -284.40000000000003;
+    //   this.triangleNode.rotation(this.correcao_de_angulo);
+    // }, 2000);
+    // setTimeout(() => {
+    //   this.rotateNode();
+    // }, 4000);
   },
   data() {
     return {
@@ -88,7 +80,6 @@ export default {
           context.closePath();
           context.fillStrokeShape(shape);
         },
-        rotationSnaps: [0, 90, 180, 270],
         fill: "#00D2FF",
         x: 100,
         y: 100,
@@ -129,23 +120,23 @@ export default {
     },
   },
   watch: {
-    ctPlayers(value) {
-      let positionX =
-        Math.abs(Number(value[0].position.split(",")[0]) + 3000) / 15;
-      let positionY = Math.abs(
-        (Number(value[0].position.split(",")[1]) - 3000) / 15
-      );
-      console.log("X: " + Number(value[0].position.split(",")[0]));
-      console.log("Y: " + Number(value[0].position.split(",")[1]));
-      this.circleNode.x(positionX);
-      this.circleNode.y(positionY);
-      this.triangleNode.x(positionX);
-      this.triangleNode.y(positionY);
-      this.rotateNode(
-        value[0].forward.split(",")[0],
-        value[0].forward.split(",")[1]
-      );
-    },
+    // ctPlayers(value) {
+    //   let positionX =
+    //     Math.abs(Number(value[0].position.split(",")[0]) + 3000) / 15;
+    //   let positionY = Math.abs(
+    //     (Number(value[0].position.split(",")[1]) - 3000) / 15
+    //   );
+    //   console.log("X: " + Number(value[0].position.split(",")[0]));
+    //   console.log("Y: " + Number(value[0].position.split(",")[1]));
+    //   this.circleNode.x(positionX);
+    //   this.circleNode.y(positionY);
+    //   this.triangleNode.x(positionX);
+    //   this.triangleNode.y(positionY);
+    //   this.rotateNode(
+    //     value[0].forward.split(",")[0],
+    //     value[0].forward.split(",")[1]
+    //   );
+    // },
   },
   methods: {
     ...mapActions({
