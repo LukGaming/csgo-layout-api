@@ -6,7 +6,7 @@
         alt=""
         style="
           width: 310px;
-          height: 330px;
+          height: 350px;
           position: fixed;
           top: 29px;
           left: 20px;
@@ -120,8 +120,8 @@ export default {
       circleNodeT: [],
       playerNumberT: [],
       configKonva: {
-        x: 155,
-        y: 220,
+        x: 200,
+        y: 290,
         width: 1920,
         height: 1080,
       },
@@ -184,41 +184,55 @@ export default {
   },
   watch: {
     tPlayers(value) {
-      for (let i = 0; i < this.circleNodeT.length; i++) {
-        let positionX = Math.abs(Number(value[i].position.split(",")[0])) / 15;
-        let positionY = Math.abs(Number(value[i].position.split(",")[1]) / 15);
-        this.circleNodeT[i].x(positionX);
-        this.circleNodeT[i].y(positionY);
-        this.circleNodeT[i].zIndex(2);
-        this.triangleNodeT[i].x(positionX);
-        this.triangleNodeT[i].y(positionY);
-        this.triangleNodeT[i].zIndex(1);
-        this.playerNumberT[i].x(positionX - 3);
-        this.playerNumberT[i].y(positionY - 3);
-        this.playerNumberT[i].zIndex();
+      //   console.log(value[0].position);
+      //   for (let i = 0; i < this.circleNodeT.length; i++) {
+      //     let positionX = Math.abs(Number(value[i].position.split(",")[0])) / 15;
+      //     let positionY = Math.abs(Number(value[i].position.split(",")[1]) / 15);
+      //     this.circleNodeT[i].x(positionX);
+      //     this.circleNodeT[i].y(positionY);
+      //     this.circleNodeT[i].zIndex(2);
+      //     this.triangleNodeT[i].x(positionX);
+      //     this.triangleNodeT[i].y(positionY);
+      //     this.triangleNodeT[i].zIndex(1);
+      //     this.playerNumberT[i].x(positionX - 3);
+      //     this.playerNumberT[i].y(positionY - 3);
+      //     this.playerNumberT[i].zIndex();
 
-        this.triangleNodeT[i].rotation(
-          this.correcao_de_angulo -
-            this.setDegreesWithSenAndCos(
-              value[i].forward.split(",")[0],
-              value[i].forward.split(",")[1]
-            )
-        );
-      }
+      //     this.triangleNodeT[i].rotation(
+      //       this.correcao_de_angulo -
+      //         this.setDegreesWithSenAndCos(
+      //           value[i].forward.split(",")[0],
+      //           value[i].forward.split(",")[1]
+      //         )
+      //     );
+      //   }
+      return value;
     },
     ctPlayers(value) {
+      var division = 15;
       for (let i = 0; i < this.circleNode.length; i++) {
-        let positionX = Math.abs((Number(value[i].position.split(",")[0]) /5));
-        let positionY = Math.abs(Number(value[i].position.split(",")[1]) /5);
-        console.log("X: " + positionX);
-        console.log("Y: " + positionY);
-        this.circleNode[i].x(positionX - 280);
-        this.circleNode[i].y(positionY - 65);
-        this.circleNode[i].zIndex(2);
-        this.triangleNode[i].x(positionX - 600);
-        this.triangleNode[i].y(positionY - 155);
+        var positionX = Number(value[i].position.split(",")[0]);
+        var positionY = Number(value[i].position.split(",")[1]);
+        if (positionX < 0) {
+          positionX = -Math.abs(positionX / division);
+        } else {
+          positionX = positionX / division;
+        }
+        if (positionY < 0) {
+          positionY = +Math.abs(positionY / division);
+        } else {
+          positionY = -Math.abs(positionY / division);
+        }
+        this.circleNode[i].x(positionX);
+        this.circleNode[i].y(positionY);
+        this.triangleNode[i].x(positionX);
+        this.triangleNode[i].y(positionY);
+
+        this.circleNode[i].zIndex();
+        this.triangleNode[i].x(positionX);
+        this.triangleNode[i].y(positionY);
         this.triangleNode[i].zIndex(1);
-        this.playerNumber[i].x(positionX +310 - 3);
+        this.playerNumber[i].x(positionX + 310 - 3);
         this.playerNumber[i].y(positionY + 115 - 3);
         this.playerNumber[i].zIndex();
         this.triangleNode[i].rotation(
