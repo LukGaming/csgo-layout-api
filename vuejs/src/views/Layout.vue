@@ -9,6 +9,7 @@
       > -->
       <div>
         <MapOverpass v-if="mapName === 'de_overpass'"/>
+        <MapDust2 v-if="mapName === 'de_dust2'"/>
       </div>
       <!-- <div class="d-flex justify-center mt-2">
         <GameTopResults />
@@ -30,6 +31,7 @@
 // import TPlayers from "../components/players/TPlayers.vue";
 import { mapActions, mapGetters } from "vuex";
 import MapOverpass from "../components/map/MapOverpass.vue";
+import MapDust2 from "../components/map/mapDust2.vue";
 // import ActivePlayer from "../components/players/ActivePlayer.vue";
 // import PlayerAvatar from "../components/players/PlayerAvatar.vue";
 export default {
@@ -38,7 +40,8 @@ export default {
     // CtPlayers,
     // TPlayers,
     // GameTopResults,
-    MapOverpass
+    MapOverpass,
+    MapDust2
 },
   created() {
     this.$http
