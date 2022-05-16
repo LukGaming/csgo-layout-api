@@ -1,15 +1,16 @@
 <template>
   <div>
-    <div style="max-width: 500px">
+    <div >
       <img
         src="../../assets/map_dust2.png"
         alt=""
         style="
-          width: 310px;
-          height: 350px;
+          width: 265px;
+          height: 290px;
           position: fixed;
-          top: 29px;
-          left: 20px;
+          top: 54px;
+          left: 40px;
+          border: 2px solid green;
         "
       />
       <!-- style="position: fixed; top: 120px; width: 280px; height: 345px" -->
@@ -40,7 +41,7 @@
               :config="{
                 x: 100,
                 y: 100,
-                radius: 8,
+                radius: 3,
                 fill: 'blue',
               }"
             ></v-circle>
@@ -83,7 +84,7 @@
               :config="{
                 x: 100,
                 y: 100,
-                radius: 8,
+                radius: 3,
                 fill: 'orange',
               }"
             ></v-circle>
@@ -120,15 +121,15 @@ export default {
       circleNodeT: [],
       playerNumberT: [],
       configKonva: {
-        x: 200,
-        y: 290,
+        x: 190,
+        y: 255,
         width: 1920,
         height: 1080,
       },
       configCircle: {
         x: 100,
         y: 100,
-        radius: 5,
+        radius: 1,
         fill: "red",
       },
       test: {
@@ -184,32 +185,44 @@ export default {
   },
   watch: {
     tPlayers(value) {
-      //   console.log(value[0].position);
-      //   for (let i = 0; i < this.circleNodeT.length; i++) {
-      //     let positionX = Math.abs(Number(value[i].position.split(",")[0])) / 15;
-      //     let positionY = Math.abs(Number(value[i].position.split(",")[1]) / 15);
-      //     this.circleNodeT[i].x(positionX);
-      //     this.circleNodeT[i].y(positionY);
-      //     this.circleNodeT[i].zIndex(2);
-      //     this.triangleNodeT[i].x(positionX);
-      //     this.triangleNodeT[i].y(positionY);
-      //     this.triangleNodeT[i].zIndex(1);
-      //     this.playerNumberT[i].x(positionX - 3);
-      //     this.playerNumberT[i].y(positionY - 3);
-      //     this.playerNumberT[i].zIndex();
+      var division = 16;
+      for (let i = 0; i < this.circleNodeT.length; i++) {
+        var positionX = Number(value[i].position.split(",")[0]);
+        var positionY = Number(value[i].position.split(",")[1]);
+        if (positionX < 0) {
+          positionX = -Math.abs(positionX / division);
+        } else {
+          positionX = positionX / division;
+        }
+        if (positionY < 0) {
+          positionY = +Math.abs(positionY / division);
+        } else {
+          positionY = -Math.abs(positionY / division);
+        }
+        this.circleNodeT[i].x(positionX);
+        this.circleNodeT[i].y(positionY);
+        // this.triangleNodeT[i].x(positionX);
+        // this.triangleNodeT[i].y(positionY);
 
-      //     this.triangleNodeT[i].rotation(
-      //       this.correcao_de_angulo -
-      //         this.setDegreesWithSenAndCos(
-      //           value[i].forward.split(",")[0],
-      //           value[i].forward.split(",")[1]
-      //         )
-      //     );
-      //   }
+        // this.circleNodeT[i].zIndex();
+        // this.triangleNodeT[i].x(positionX);
+        // this.triangleNodeT[i].y(positionY);
+        // this.triangleNodeT[i].zIndex(1);
+        // this.playerNumberT[i].x(positionX- 3 );
+        // this.playerNumberT[i].y(positionY -3);
+        // this.playerNumberT[i].zIndex();
+        // this.triangleNodeT[i].rotation(
+        //   this.correcao_de_angulo -
+        //     this.setDegreesWithSenAndCos(
+        //       value[i].forward.split(",")[0],
+        //       value[i].forward.split(",")[1]
+        //     )
+        // );
+      }
       return value;
     },
     ctPlayers(value) {
-      var division = 15;
+      var division = 16;
       for (let i = 0; i < this.circleNode.length; i++) {
         var positionX = Number(value[i].position.split(",")[0]);
         var positionY = Number(value[i].position.split(",")[1]);
@@ -225,23 +238,23 @@ export default {
         }
         this.circleNode[i].x(positionX);
         this.circleNode[i].y(positionY);
-        this.triangleNode[i].x(positionX);
-        this.triangleNode[i].y(positionY);
+        // this.triangleNode[i].x(positionX);
+        // this.triangleNode[i].y(positionY);
 
-        this.circleNode[i].zIndex();
-        this.triangleNode[i].x(positionX);
-        this.triangleNode[i].y(positionY);
-        this.triangleNode[i].zIndex(1);
-        this.playerNumber[i].x(positionX + 310 - 3);
-        this.playerNumber[i].y(positionY + 115 - 3);
-        this.playerNumber[i].zIndex();
-        this.triangleNode[i].rotation(
-          this.correcao_de_angulo -
-            this.setDegreesWithSenAndCos(
-              value[i].forward.split(",")[0],
-              value[i].forward.split(",")[1]
-            )
-        );
+        // this.circleNode[i].zIndex();
+        // this.triangleNode[i].x(positionX);
+        // this.triangleNode[i].y(positionY);
+        // this.triangleNode[i].zIndex(1);
+        // this.playerNumber[i].x(positionX  - 3);
+        // this.playerNumber[i].y(positionY - 3);
+        // this.playerNumber[i].zIndex();
+        // this.triangleNode[i].rotation(
+        //   this.correcao_de_angulo -
+        //     this.setDegreesWithSenAndCos(
+        //       value[i].forward.split(",")[0],
+        //       value[i].forward.split(",")[1]
+        //     )
+        // );
       }
       return value;
     },

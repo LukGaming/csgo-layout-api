@@ -184,6 +184,7 @@ export default {
   },
   watch: {
     tPlayers(value) {
+        console.log(value[0].position.split(",")[0])
       for (let i = 0; i < this.circleNodeT.length; i++) {
         let positionX =
           Math.abs(Number(value[i].position.split(",")[0]) + 3000) / 15;
