@@ -1,30 +1,33 @@
 <template>
   <div>
-    <div >
+    <div>
       <img
-        src="../../assets/map_dust2.png"
+        src="../../assets/map_dust2_novo.png"
         alt=""
         style="
-          width: 265px;
+          width: 290px;
           height: 290px;
           position: fixed;
-          top: 54px;
-          left: 40px;
+          top: 48px;
+          left: 30px;
           border: 2px solid green;
         "
       />
       <!-- style="position: fixed; top: 120px; width: 280px; height: 345px" -->
       <v-stage :config="configKonva" style="position: fixed; top: 0">
         <div>
-          <v-layer v-for="(player, index) in ctPlayers" :key="index">
+          <v-layer
+            v-for="(player, index) in ctPlayers"
+            :key="index"
+            ref="ctLayer"
+          >
             <v-shape
-              v-if="player.state.health > 0"
               :config="{
                 sceneFunc: function (context, shape) {
                   context.beginPath();
-                  context.moveTo(0, 8);
-                  context.lineTo(8, 0);
-                  context.quadraticCurveTo(8, 8, 8, 8);
+                  context.moveTo(0, 10);
+                  context.lineTo(10, 0);
+                  context.quadraticCurveTo(10, 10, 10, 10);
                   context.closePath();
                   context.fillStrokeShape(shape);
                 },
@@ -36,17 +39,15 @@
               ref="triangle"
             ></v-shape>
             <v-circle
-              v-if="player.state.health > 0"
               ref="circle"
               :config="{
                 x: 100,
                 y: 100,
-                radius: 3,
+                radius: 10,
                 fill: 'blue',
               }"
             ></v-circle>
             <v-text
-              v-if="player.state.health > 0"
               :config="{
                 x: 100,
                 y: 100,
@@ -61,13 +62,12 @@
         <div>
           <v-layer v-for="(tPlayer, test) in tPlayers" :key="test">
             <v-shape
-              v-if="tPlayer.state.health > 0"
               :config="{
                 sceneFunc: function (context, shape) {
                   context.beginPath();
-                  context.moveTo(0, 8);
-                  context.lineTo(8, 0);
-                  context.quadraticCurveTo(8, 8, 8, 8);
+                  context.moveTo(0, 10);
+                  context.lineTo(10, 0);
+                  context.quadraticCurveTo(10, 10, 10, 10);
                   context.closePath();
                   context.fillStrokeShape(shape);
                 },
@@ -79,17 +79,15 @@
               ref="triangleT"
             ></v-shape>
             <v-circle
-              v-if="tPlayer.state.health > 0"
               ref="circleT"
               :config="{
                 x: 100,
                 y: 100,
-                radius: 3,
+                radius: 10,
                 fill: 'orange',
               }"
             ></v-circle>
             <v-text
-              v-if="tPlayer.state.health > 0"
               :config="{
                 x: 100,
                 y: 100,
@@ -109,6 +107,7 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
+import Konva from "konva";
 export default {
   name: "Map",
   data() {
@@ -163,6 +162,14 @@ export default {
   },
 
   created() {
+    // setTimeout(() => {
+    //   const node = this.$refs.ctLayer[0].getNode();
+    //   const anim = new Konva.Animation(function (frame) {
+    //     console.log(frame);
+    //     node.setX(node.getX() + 0.5);
+    //   }, node.getLayer());
+    //   anim.start();
+    // }, 1000);
     setTimeout(() => {
       for (let i = 0; i < this.ctPlayers.length; i++) {
         this.triangleNode.push(this.$refs.triangle[i].getNode());
@@ -175,6 +182,8 @@ export default {
         this.playerNumberT.push(this.$refs.playerNumberT[j].getNode());
       }
     }, 2000);
+    //
+    //
   },
 
   computed: {
@@ -201,28 +210,37 @@ export default {
         }
         this.circleNodeT[i].x(positionX);
         this.circleNodeT[i].y(positionY);
-        // this.triangleNodeT[i].x(positionX);
-        // this.triangleNodeT[i].y(positionY);
+        this.triangleNodeT[i].x(positionX);
+        this.triangleNodeT[i].y(positionY);
 
-        // this.circleNodeT[i].zIndex();
-        // this.triangleNodeT[i].x(positionX);
-        // this.triangleNodeT[i].y(positionY);
-        // this.triangleNodeT[i].zIndex(1);
-        // this.playerNumberT[i].x(positionX- 3 );
-        // this.playerNumberT[i].y(positionY -3);
-        // this.playerNumberT[i].zIndex();
-        // this.triangleNodeT[i].rotation(
-        //   this.correcao_de_angulo -
-        //     this.setDegreesWithSenAndCos(
-        //       value[i].forward.split(",")[0],
-        //       value[i].forward.split(",")[1]
-        //     )
-        // );
+        this.circleNodeT[i].zIndex();
+        this.triangleNodeT[i].x(positionX);
+        this.triangleNodeT[i].y(positionY);
+        this.triangleNodeT[i].zIndex(1);
+        this.playerNumberT[i].x(positionX - 3);
+        this.playerNumberT[i].y(positionY - 3);
+        this.playerNumberT[i].zIndex();
+        this.triangleNodeT[i].rotation(
+          this.correcao_de_angulo -
+            this.setDegreesWithSenAndCos(
+              value[i].forward.split(",")[0],
+              value[i].forward.split(",")[1]
+            )
+        );
       }
       return value;
     },
     ctPlayers(value) {
+        // const node = this.$refs.ctLayer[0].getNode();
+        // const anim = new Konva.Animation(function () {
+        //   console.log(positionX);
+        //   console.log(positionY);
+        //   node.setX(positionX);
+        //   node.setY(positionY);
+        // }, node.getLayer());
+        // anim.start();
       var division = 16;
+
       for (let i = 0; i < this.circleNode.length; i++) {
         var positionX = Number(value[i].position.split(",")[0]);
         var positionY = Number(value[i].position.split(",")[1]);
@@ -236,26 +254,27 @@ export default {
         } else {
           positionY = -Math.abs(positionY / division);
         }
-        this.circleNode[i].x(positionX);
-        this.circleNode[i].y(positionY);
-        // this.triangleNode[i].x(positionX);
-        // this.triangleNode[i].y(positionY);
-
-        // this.circleNode[i].zIndex();
-        // this.triangleNode[i].x(positionX);
-        // this.triangleNode[i].y(positionY);
-        // this.triangleNode[i].zIndex(1);
-        // this.playerNumber[i].x(positionX  - 3);
-        // this.playerNumber[i].y(positionY - 3);
-        // this.playerNumber[i].zIndex();
-        // this.triangleNode[i].rotation(
-        //   this.correcao_de_angulo -
-        //     this.setDegreesWithSenAndCos(
-        //       value[i].forward.split(",")[0],
-        //       value[i].forward.split(",")[1]
-        //     )
-        // );
       }
+      //     this.circleNode[i].x(positionX);
+      //     this.circleNode[i].y(positionY);
+      //     this.triangleNode[i].x(positionX);
+      //     this.triangleNode[i].y(positionY);
+
+      //     this.circleNode[i].zIndex();
+      //     this.triangleNode[i].x(positionX);
+      //     this.triangleNode[i].y(positionY);
+      //     this.triangleNode[i].zIndex(1);
+      //     this.playerNumber[i].x(positionX  - 3);
+      //     this.playerNumber[i].y(positionY - 3);
+      //     this.playerNumber[i].zIndex();
+      //     this.triangleNode[i].rotation(
+      //       this.correcao_de_angulo -
+      //         this.setDegreesWithSenAndCos(
+      //           value[i].forward.split(",")[0],
+      //           value[i].forward.split(",")[1]
+      //         )
+      //     );
+      //   }
       return value;
     },
   },
