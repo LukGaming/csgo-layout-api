@@ -107,7 +107,6 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
-import Konva from "konva";
 export default {
   name: "Map",
   data() {
@@ -230,31 +229,28 @@ export default {
       }
       return value;
     },
-    ctPlayers(value) {
-        // const node = this.$refs.ctLayer[0].getNode();
-        // const anim = new Konva.Animation(function () {
-        //   console.log(positionX);
-        //   console.log(positionY);
-        //   node.setX(positionX);
-        //   node.setY(positionY);
-        // }, node.getLayer());
-        // anim.start();
-      var division = 16;
+    ctPlayers(value, oldValue) {
+      var newPositionX = Number(value[0].position.split(",")[0]);
+      var oldPositionY = Number(oldValue[0].position.split(",")[0]);
+      this.circleNode[0].isAnimating = true;
+      this.createAnimationPlayer(newPositionX, oldPositionY);
 
-      for (let i = 0; i < this.circleNode.length; i++) {
-        var positionX = Number(value[i].position.split(",")[0]);
-        var positionY = Number(value[i].position.split(",")[1]);
-        if (positionX < 0) {
-          positionX = -Math.abs(positionX / division);
-        } else {
-          positionX = positionX / division;
-        }
-        if (positionY < 0) {
-          positionY = +Math.abs(positionY / division);
-        } else {
-          positionY = -Math.abs(positionY / division);
-        }
-      }
+      //   var division = 16;
+
+      //   for (let i = 0; i < this.circleNode.length; i++) {
+      //     var positionX = Number(value[i].position.split(",")[0]);
+      //     var positionY = Number(value[i].position.split(",")[1]);
+      //     if (positionX < 0) {
+      //       positionX = -Math.abs(positionX / division);
+      //     } else {
+      //       positionX = positionX / division;
+      //     }
+      //     if (positionY < 0) {
+      //       positionY = +Math.abs(positionY / division);
+      //     } else {
+      //       positionY = -Math.abs(positionY / division);
+      //     }
+
       //     this.circleNode[i].x(positionX);
       //     this.circleNode[i].y(positionY);
       //     this.triangleNode[i].x(positionX);
@@ -264,7 +260,7 @@ export default {
       //     this.triangleNode[i].x(positionX);
       //     this.triangleNode[i].y(positionY);
       //     this.triangleNode[i].zIndex(1);
-      //     this.playerNumber[i].x(positionX  - 3);
+      //     this.playerNumber[i].x(positionX - 3);
       //     this.playerNumber[i].y(positionY - 3);
       //     this.playerNumber[i].zIndex();
       //     this.triangleNode[i].rotation(
@@ -275,10 +271,31 @@ export default {
       //         )
       //     );
       //   }
-      return value;
+      return value, oldValue;
     },
   },
+
   methods: {
+    createAnimationPlayer(oldPosition, newPosition) {
+      console.log("Posicao antiga: " + oldPosition);
+      console.log("nova posicao" + newPosition);
+      if (this.circleNode[0].isAnimating === true) {
+        if (newPosition > this.circleNode[0].getX()) {
+          console.log(" Aumentando");
+          setTimeout(() => {
+            if (this.circleNode[0].isAnimating === true) {
+              this.circleNode[0].setX(this.circleNode[0].getX() + 0.5);
+            }
+          }, 10);
+        } else {
+          setTimeout(() => {
+            if (this.circleNode[0].isAnimating === true) {
+              this.circleNode[0].setX(this.circleNode[0].getX() - 0.5);
+            }
+          }, 10);
+        }
+      }
+    },
     rotateNode(x, y) {
       this.triangleNode.rotation(
         this.correcao_de_angulo - this.setDegreesWithSenAndCos(x, y)
