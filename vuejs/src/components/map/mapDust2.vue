@@ -106,11 +106,13 @@
   </div>
 </template>
 <script>
+import Konva from "konva";
 import { mapGetters } from "vuex";
 export default {
   name: "Map",
   data() {
     return {
+      animations: null,
       correcao_de_angulo: 225 + 90,
       triangleNode: [],
       circleNode: [],
@@ -230,8 +232,8 @@ export default {
       return value;
     },
     ctPlayers(value, oldValue) {
-      var newPositionX = Number(value[0].position.split(",")[0]);
-      var oldPositionY = Number(oldValue[0].position.split(",")[0]);
+      var newPositionX = Number(value[0].position.split(",")[0] / 16);
+      var oldPositionY = Number(oldValue[0].position.split(",")[0] / 16);
       this.circleNode[0].isAnimating = true;
       this.createAnimationPlayer(newPositionX, oldPositionY);
 
@@ -277,24 +279,55 @@ export default {
 
   methods: {
     createAnimationPlayer(oldPosition, newPosition) {
-      console.log("Posicao antiga: " + oldPosition);
-      console.log("nova posicao" + newPosition);
-      if (this.circleNode[0].isAnimating === true) {
-        if (newPosition > this.circleNode[0].getX()) {
-          console.log(" Aumentando");
-          setTimeout(() => {
-            if (this.circleNode[0].isAnimating === true) {
-              this.circleNode[0].setX(this.circleNode[0].getX() + 0.5);
-            }
-          }, 10);
-        } else {
-          setTimeout(() => {
-            if (this.circleNode[0].isAnimating === true) {
-              this.circleNode[0].setX(this.circleNode[0].getX() - 0.5);
-            }
-          }, 10);
-        }
-      }
+      console.log(oldPosition, newPosition);
+      setTimeout(() => {
+        const node = this.circleNode[0];
+        node.setX(oldPosition);
+        var position1 = 89.65875;
+        var position2 = 65.205625;
+        setInterval(() => {
+          var diferenca_posicao = (position2 - position1) / 16;
+          if (position1 > position2) {
+            node.setX(node.getX() - diferenca_posicao);
+            position2 += diferenca_posicao;
+          }
+          node.setX(node.getX() - diferenca_posicao);
+        }, 10);
+      }, 1000);
+
+      //   var position1 = newPosition;
+      //   var position2 = oldPosition;
+      //   setTimeout(() => {
+      //     if (position1 < position2) {
+      //       this.circleNode[0].setX(this.circleNode[0].getX() + 0.5);
+      //     }
+      //     else{
+      //         this.circleNode[0].setX(this.circleNode[0].getX() - 0.5);
+      //     }
+      //   }, 100);
+
+      return oldPosition, newPosition, Konva;
+      //   console.log("Posicao antiga: " + oldPosition);
+      //   console.log("nova posicao" + newPosition);
+      //   if (this.circleNode[0].isAnimating === true) {
+      //     if (newPosition > this.circleNode[0].getX()) {
+      //       console.log(" Aumentando");
+      //        this.circleNode[0].animation  = setTimeout(() => {
+      //         if (this.circleNode[0].isAnimating === true) {
+      //           this.circleNode[0].setX(this.circleNode[0].getX() + 0.5);
+      //         }
+      //       }, 10);
+      //     } else {
+      //       setTimeout(() => {
+      //         if (this.circleNode[0].isAnimating === true) {
+      //           this.circleNode[0].setX(this.circleNode[0].getX() - 0.5);
+      //         }
+      //       }, 10);
+      //     }
+      //   }
+      //   else{
+      //       this.circleNode[0].animation.clearTimeout()
+      //   }
     },
     rotateNode(x, y) {
       this.triangleNode.rotation(
