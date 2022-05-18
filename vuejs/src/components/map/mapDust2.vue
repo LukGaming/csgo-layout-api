@@ -164,6 +164,43 @@ export default {
 
   created() {
     // setTimeout(() => {
+    //   // Antiga posicao: -130.19125
+    //   // mapDust2.vue?fd63:269 Nova posicao: -120.553125
+    //   const position1 = -130.19125;
+    //   const position2 = -120.553125;
+    //   this.circleNode[0].setX(position1);
+    //   setInterval(() => {
+    //     if (position1 < position2) {
+    //       if (this.circleNode[0].getX() <= position2) {
+    //         this.circleNode[0].setX(this.circleNode[0].getX() + 0.2);
+    //       }
+    //     } else {
+    //       if (this.circleNode[0].getX() >= position2) {
+    //         this.circleNode[0].setX(this.circleNode[0].getX() - 0.2);
+    //       }
+    //     }
+    //   }, 10);
+    // }, 3000);
+
+    // setTimeout(() => {
+    //   console.log("iniciando funcao");
+    //   // this.animations = new Konva.Animation(function (frame) {
+    //   //   console.log(frame);
+    //   // }, this.circleNode[0]);
+    //   // this.animations.start();
+    //   const _this = this;
+    //   const node = this.circleNode[0].getLayer();
+    //   const anim1 = new Konva.Animation(function (frame) {
+    //     var positionX = _this.ctPlayers[0].position.split(",")[0] / 16;
+    //     var positionY = _this.ctPlayers[0].position.split(",")[1] / 16;
+    //     console.log();
+    //     node.setX(positionX);
+    //     node.setY(positionY);
+    //     return frame;
+    //   }, node);
+    //   anim1.start();
+    // }, 3000);
+    // setTimeout(() => {
     //   const node = this.$refs.ctLayer[0].getNode();
     //   const anim = new Konva.Animation(function (frame) {
     //     console.log(frame);
@@ -176,6 +213,7 @@ export default {
         this.triangleNode.push(this.$refs.triangle[i].getNode());
         this.circleNode.push(this.$refs.circle[i].getNode());
         this.playerNumber.push(this.$refs.playerNumber[i].getNode());
+        this.circleNode[i].isAnimating = false;
       }
       for (let j = 0; j < this.ctPlayers.length; j++) {
         this.triangleNodeT.push(this.$refs.triangleT[j].getNode());
@@ -232,11 +270,65 @@ export default {
       return value;
     },
     ctPlayers(value, oldValue) {
-      var newPositionX = Number(value[0].position.split(",")[0] / 16);
-      var oldPositionY = Number(oldValue[0].position.split(",")[0] / 16);
-      this.circleNode[0].isAnimating = true;
-      this.createAnimationPlayer(newPositionX, oldPositionY);
+      this.circleNode[0].newValueX = Number(
+        value[0].position.split(",")[0] / 16
+      );
+      this.circleNode[0].oldValueX = Number(
+        oldValue[0].position.split(",")[0] / 16
+      );
+      this.circleNode[0].newValueY = Number(
+        value[0].position.split(",")[1] / 16
+      );
+      this.circleNode[0].oldValueY = Number(
+        oldValue[0].position.split(",")[1] / 16
+      );
 
+      if (this.circleNode[0].isAnimating == false) {
+        this.circleNode[0].isAnimating = true;
+        this.circleNode[0].animation = setTimeout(() => {
+          if (this.circleNode[0].newValueX > this.circleNode[0].oldValueX) {
+            setInterval(() => {
+              if (this.circleNode[0].getX() <= this.circleNode[0].oldValueX) {
+                this.circleNode[0].setX(this.circleNode[0].getX() + 0.002);
+              }
+            }, 100);
+          } else {
+            setInterval(() => {
+                console.log('executando timeout')
+              if (this.circleNode[0].getX() >= this.circleNode[0].oldValueX) {
+                this.circleNode[0].setX(this.circleNode[0].getX() - 0.002);
+              }
+            }, 100);
+          }
+          if (this.circleNode[0].newValueY > this.circleNode[0].oldValueY) {
+            setInterval(() => {
+              if (this.circleNode[0].getY() <= this.circleNode[0].oldValueY) {
+                this.circleNode[0].setY(this.circleNode[0].getY() + 0.002);
+              }
+            }, 100);
+          } else {
+            setInterval(() => {
+              if (this.circleNode[0].getY() >= this.circleNode[0].oldValueY) {
+                this.circleNode[0].setY(this.circleNode[0].getY() - 0.002);
+              }
+            }, 100);
+            console.log("O novo valor é menor");
+          }
+        }, 1000);
+      } else {
+        this.circleNode[0].setX(this.circleNode[0].newValueX);
+        this.circleNode[0].setY(this.circleNode[0].newValueY);
+      }
+
+      //   var newPositionX = Number(value[0].position.split(",")[0] / 16);
+      //   var oldPositionY = Number(oldValue[0].position.split(",")[0] / 16);
+      //   this.circleNode[0].isAnimating = true;
+
+      //   const anim = new Konva.Animation(function(frame) {
+      //   hexagon.setX(
+      //     amplitude * Math.sin((frame.time * 2 * Math.PI) / period) + centerX
+      //   );
+      // }, hexagon.getLayer());
       //   var division = 16;
 
       //   for (let i = 0; i < this.circleNode.length; i++) {
@@ -279,21 +371,21 @@ export default {
 
   methods: {
     createAnimationPlayer(oldPosition, newPosition) {
-      console.log(oldPosition, newPosition);
-      setTimeout(() => {
-        const node = this.circleNode[0];
-        node.setX(oldPosition);
-        var position1 = 89.65875;
-        var position2 = 65.205625;
-        setInterval(() => {
-          var diferenca_posicao = (position2 - position1) / 16;
-          if (position1 > position2) {
-            node.setX(node.getX() - diferenca_posicao);
-            position2 += diferenca_posicao;
-          }
-          node.setX(node.getX() - diferenca_posicao);
-        }, 10);
-      }, 1000);
+      //   console.log(oldPosition, newPosition);
+      //   setTimeout(() => {
+      //     const node = this.circleNode[0];
+      //     node.setX(oldPosition);
+      //     var position1 = 89.65875;
+      //     var position2 = 65.205625;
+      //     setInterval(() => {
+      //       var diferenca_posicao = (position2 - position1) / 16;
+      //       if (position1 > position2) {
+      //         node.setX(node.getX() - diferenca_posicao);
+      //         position2 += diferenca_posicao;
+      //       }
+      //       node.setX(node.getX() - diferenca_posicao);
+      //     }, 10);
+      //   }, 1000);
 
       //   var position1 = newPosition;
       //   var position2 = oldPosition;
