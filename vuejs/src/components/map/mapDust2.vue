@@ -112,6 +112,7 @@ export default {
   name: "Map",
   data() {
     return {
+      speedTimeOut: 1,
       speed: 0.2,
       animations: null,
       correcao_de_angulo: 225 + 90,
@@ -184,7 +185,7 @@ export default {
     //         this.circleNode[0].setX(this.circleNode[0].getX() - this.speed);
     //       }
     //     }
-    //   }, 10);
+    //   }, this.speedTimeOut);
     // }, 3000);
 
     // setTimeout(() => {
@@ -289,58 +290,135 @@ export default {
       //   this.circleNode[0].oldValueY = Number(
       //     oldValue[0].position.split(",")[1] / 16
       //   );
+      for (let i = 0; i < this.circleNode.length; i++) {
+        //Settando valores de posicoes nos objetos
+        this.circleNode[i].newValueX = Number(
+          value[i].position.split(",")[0] / 16
+        );
+        this.circleNode[i].oldValueX = Number(
+          oldValue[i].position.split(",")[0] / 16
+        );
+        this.circleNode[i].newValueY = Number(
+          value[i].position.split(",")[1] / 16
+        );
+        this.circleNode[i].oldValueY = Number(
+          oldValue[i].position.split(",")[1] / 16
+        );
+        //Configurando valores reais para o canvas
+        if (this.circleNode[i].newValueX < 0) {
+          this.circleNode[i].newValueX = -Math.abs(
+            this.circleNode[i].newValueX
+          );
+        }
+        if (this.circleNode[i].oldValueX < 0) {
+          this.circleNode[i].oldValueX = -Math.abs(
+            this.circleNode[i].oldValueX
+          );
+        }
+        if (this.circleNode[i].newValueY < 0) {
+          this.circleNode[i].newValueY = +Math.abs(
+            this.circleNode[i].newValueY
+          );
+        } else {
+          this.circleNode[i].newValueY = -Math.abs(
+            this.circleNode[i].newValueY
+          );
+        }
+        if (this.circleNode[i].oldValueY < 0) {
+          this.circleNode[i].oldValueY = +Math.abs(
+            this.circleNode[i].oldValueY
+          );
+        } else {
+          this.circleNode[i].oldValueY = -Math.abs(
+            this.circleNode[i].oldValueY
+          );
+        }
+        //Iniciando as animacoes
+        if (this.circleNode[i].firstAppereance == true) {
+          this.circleNode[i].setX(this.circleNode[i].newValueX);
+          this.circleNode[i].setY(this.circleNode[i].newValueY);
+          this.circleNode[i].zIndex();
+          this.circleNode[i].setX(this.circleNode[i].newValueX);
+          this.circleNode[i].setY(this.circleNode[i].newValueY);
+          this.circleNode[i].zIndex(1);
+          this.circleNode[i].setX(this.circleNode[i].newValueX - 3);
+          this.circleNode[i].setY(this.circleNode[i].newValueY - 3);
+          this.circleNode[i].firstAppereance = false;
+        }
+        if (this.circleNode[i].isAnimatingX == false) {
+          clearInterval(this.circleNode[i].animationX);
+          this.circleNode[i].animationX = null;
+          if (this.circleNode[i].newValueX > this.circleNode[i].oldValueX) {
+            this.increaseAnimationX(this.circleNode[i].newValueX, i);
+          }
+          if (this.circleNode[i].newValueX < this.circleNode[i].oldValueX) {
+            this.decreaseAnimationX(this.circleNode[i].newValueX, i);
+          }
+        }
+        if (this.circleNode[i].isAnimatingY == false) {
+          clearInterval(this.circleNode[i].animationY);
+          this.circleNode[i].animationY = null;
+          if (this.circleNode[i].newValueY > this.circleNode[i].oldValueY) {
+            this.increaseAnimationY(this.circleNode[i].newValueY, i);
+          }
+          if (this.circleNode[i].newValueY < this.circleNode[i].oldValueY) {
+            this.decreaseAnimationY(this.circleNode[i].newValueY, i);
+          }
+        }
+      }
 
-      var newValueX = Number(value[0].position.split(",")[0] / 16);
-      var oldValueX = Number(oldValue[0].position.split(",")[0] / 16);
-      var newValueY = Number(value[0].position.split(",")[1] / 16);
-      var oldValueY = Number(oldValue[0].position.split(",")[1] / 16);
-      if (newValueX < 0) {
-        newValueX = -Math.abs(newValueX);
-      }
-      if (oldValueX < 0) {
-        oldValueX = -Math.abs(oldValueX);
-      }
-      if (newValueY < 0) {
-        newValueY = +Math.abs(newValueY);
-      } else {
-        newValueY = -Math.abs(newValueY);
-      }
-      if (oldValueY < 0) {
-        oldValueY = +Math.abs(oldValueY);
-      } else {
-        oldValueY = -Math.abs(oldValueY);
-      }
-      if (this.circleNode[0].firstAppereance == true) {
-        this.circleNode[0].setX(newValueX);
-        this.circleNode[0].setY(newValueY);
-        this.circleNode[0].zIndex();
-        this.triangleNode[0].x(newValueX);
-        this.triangleNode[0].y(newValueY);
-        this.triangleNode[0].zIndex(1);
-        this.playerNumber[0].x(newValueX - 3);
-        this.playerNumber[0].y(newValueY - 3);
-        this.circleNode[0].firstAppereance = false;
-      }
-      if (this.circleNode[0].isAnimatingX == false) {
-        clearInterval(this.circleNode[0].animationX);
-        this.circleNode[0].animationX = null;
-        if (newValueX > oldValueX) {
-          this.increaseAnimationX(newValueX);
-        }
-        if (newValueX < oldValueX) {
-          this.decreaseAnimationX(newValueX);
-        }
-      }
-      if (this.circleNode[0].isAnimatingY == false) {
-        clearInterval(this.circleNode[0].animationY);
-        this.circleNode[0].animationY = null;
-        if (newValueY > oldValueY) {
-          this.increaseAnimationY(newValueY);
-        }
-        if (newValueY < oldValueY) {
-          this.decreaseAnimationY(newValueY);
-        }
-      }
+      //   var newValueX = Number(value[0].position.split(",")[0] / 16);
+      //   var oldValueX = Number(oldValue[0].position.split(",")[0] / 16);
+      //   var newValueY = Number(value[0].position.split(",")[1] / 16);
+      //   var oldValueY = Number(oldValue[0].position.split(",")[1] / 16);
+      //   if (newValueX < 0) {
+      //     newValueX = -Math.abs(newValueX);
+      //   }
+      //   if (oldValueX < 0) {
+      //     oldValueX = -Math.abs(oldValueX);
+      //   }
+      //   if (newValueY < 0) {
+      //     newValueY = +Math.abs(newValueY);
+      //   } else {
+      //     newValueY = -Math.abs(newValueY);
+      //   }
+      //   if (oldValueY < 0) {
+      //     oldValueY = +Math.abs(oldValueY);
+      //   } else {
+      //     oldValueY = -Math.abs(oldValueY);
+      //   }
+      //   if (this.circleNode[0].firstAppereance == true) {
+      //     this.circleNode[0].setX(newValueX);
+      //     this.circleNode[0].setY(newValueY);
+      //     this.circleNode[0].zIndex();
+      //     this.triangleNode[0].x(newValueX);
+      //     this.triangleNode[0].y(newValueY);
+      //     this.triangleNode[0].zIndex(1);
+      //     this.playerNumber[0].x(newValueX - 3);
+      //     this.playerNumber[0].y(newValueY - 3);
+      //     this.circleNode[0].firstAppereance = false;
+      //   }
+      //   if (this.circleNode[0].isAnimatingX == false) {
+      //     clearInterval(this.circleNode[0].animationX);
+      //     this.circleNode[0].animationX = null;
+      //     if (newValueX > oldValueX) {
+      //       this.increaseAnimationX(newValueX);
+      //     }
+      //     if (newValueX < oldValueX) {
+      //       this.decreaseAnimationX(newValueX);
+      //     }
+      //   }
+      //   if (this.circleNode[0].isAnimatingY == false) {
+      //     clearInterval(this.circleNode[0].animationY);
+      //     this.circleNode[0].animationY = null;
+      //     if (newValueY > oldValueY) {
+      //       this.increaseAnimationY(newValueY);
+      //     }
+      //     if (newValueY < oldValueY) {
+      //       this.decreaseAnimationY(newValueY);
+      //     }
+      //   }
+
       //   var newPositionX = Number(value[0].position.split(",")[0] / 16);
       //   var oldPositionY = Number(oldValue[0].position.split(",")[0] / 16);
       //   this.circleNode[0].isAnimating = true;
@@ -378,70 +456,82 @@ export default {
       //     this.playerNumber[i].x(positionX - 3);
       //     this.playerNumber[i].y(positionY - 3);
       //     this.playerNumber[i].zIndex();
-          this.triangleNode[0].rotation(
-            this.correcao_de_angulo -
-              this.setDegreesWithSenAndCos(
-                value[0].forward.split(",")[0],
-                value[0].forward.split(",")[1]
-              )
-          );
+      //   this.triangleNode[0].rotation(
+      //     this.correcao_de_angulo -
+      //       this.setDegreesWithSenAndCos(
+      //         value[0].forward.split(",")[0],
+      //         value[0].forward.split(",")[1]
+      //       )
+      //   );
       //   }
       return value, oldValue;
     },
   },
 
   methods: {
-    increaseAnimationX(newPosition) {
-      this.circleNode[0].isAnimatingX = true;
-      this.circleNode[0].animationX = setInterval(() => {
-        if (this.circleNode[0].getX() < newPosition) {
-          this.circleNode[0].setX(this.circleNode[0].getX() + this.speed);
-          this.triangleNode[0].x(this.circleNode[0].getX() + this.speed);
-          this.playerNumber[0].x(this.circleNode[0].getX() + this.speed);
+    increaseAnimationX(newPosition, node) {
+      this.circleNode[node].isAnimatingX = true;
+      this.circleNode[node].animationX = setInterval(() => {
+        if (this.circleNode[node].getX() < newPosition) {
+          this.circleNode[node].setX(this.circleNode[node].getX() + this.speed);
+          this.triangleNode[node].x(this.circleNode[node].getX() + this.speed);
+          this.playerNumber[node].x(this.circleNode[node].getX() + this.speed);
         }
-        if (this.circleNode[0].getX() >= newPosition) {
-          this.circleNode[0].isAnimatingX = false;
+        if (this.circleNode[node].getX() >= newPosition) {
+          this.circleNode[node].isAnimatingX = false;
         }
-      }, 1);
+      }, this.speedTimeOut);
     },
-    decreaseAnimationX(newPosition) {
-      this.circleNode[0].isAnimatingX = true;
-      this.circleNode[0].animationX = setInterval(() => {
-        if (this.circleNode[0].getX() > newPosition) {
-          this.circleNode[0].setX(this.circleNode[0].getX() - this.speed);
-          this.triangleNode[0].setX(this.circleNode[0].getX() - this.speed);
-          this.playerNumber[0].setX(this.circleNode[0].getX() - this.speed);
+    decreaseAnimationX(newPosition, node) {
+      this.circleNode[node].isAnimatingX = true;
+      this.circleNode[node].animationX = setInterval(() => {
+        if (this.circleNode[node].getX() > newPosition) {
+          this.circleNode[node].setX(this.circleNode[node].getX() - this.speed);
+          this.triangleNode[node].setX(
+            this.circleNode[node].getX() - this.speed
+          );
+          this.playerNumber[node].setX(
+            this.circleNode[node].getX() - this.speed
+          );
         }
-        if (this.circleNode[0].getX() <= newPosition) {
-          this.circleNode[0].isAnimatingX = false;
+        if (this.circleNode[node].getX() <= newPosition) {
+          this.circleNode[node].isAnimatingX = false;
         }
-      }, 1);
+      }, this.speedTimeOut);
     },
-    increaseAnimationY(newPosition) {
-      this.circleNode[0].isAnimatingY = true;
-      this.circleNode[0].animationY = setInterval(() => {
-        if (this.circleNode[0].getY() < newPosition) {
-          this.circleNode[0].setY(this.circleNode[0].getY() + this.speed);
-          this.triangleNode[0].setY(this.circleNode[0].getY() + this.speed);
-          this.playerNumber[0].setY(this.circleNode[0].getY() + this.speed);
+    increaseAnimationY(newPosition, node) {
+      this.circleNode[node].isAnimatingY = true;
+      this.circleNode[node].animationY = setInterval(() => {
+        if (this.circleNode[node].getY() < newPosition) {
+          this.circleNode[node].setY(this.circleNode[node].getY() + this.speed);
+          this.triangleNode[node].setY(
+            this.circleNode[node].getY() + this.speed
+          );
+          this.playerNumber[node].setY(
+            this.circleNode[node].getY() + this.speed
+          );
         }
-        if (this.circleNode[0].getY() >= newPosition) {
-          this.circleNode[0].isAnimatingY = false;
+        if (this.circleNode[node].getY() >= newPosition) {
+          this.circleNode[node].isAnimatingY = false;
         }
-      }, 10);
+      }, this.speedTimeOut);
     },
-    decreaseAnimationY(newPosition) {
-      this.circleNode[0].isAnimatingY = true;
-      this.circleNode[0].animationY = setInterval(() => {
-        if (this.circleNode[0].getY() > newPosition) {
-          this.circleNode[0].setY(this.circleNode[0].getY() - this.speed);
-          this.triangleNode[0].setY(this.circleNode[0].getY() - this.speed);
-          this.playerNumber[0].setY(this.circleNode[0].getY() - this.speed);
+    decreaseAnimationY(newPosition, node) {
+      this.circleNode[node].isAnimatingY = true;
+      this.circleNode[node].animationY = setInterval(() => {
+        if (this.circleNode[node].getY() > newPosition) {
+          this.circleNode[node].setY(this.circleNode[node].getY() - this.speed);
+          this.triangleNode[node].setY(
+            this.circleNode[node].getY() - this.speed
+          );
+          this.playerNumber[node].setY(
+            this.circleNode[node].getY() - this.speed
+          );
         }
-        if (this.circleNode[0].getY() <= newPosition) {
-          this.circleNode[0].isAnimatingY = false;
+        if (this.circleNode[node].getY() <= newPosition) {
+          this.circleNode[node].isAnimatingY = false;
         }
-      }, 10);
+      }, this.speedTimeOut);
     },
     createAnimationPlayer(oldPosition, newPosition) {
       //   console.log(oldPosition, newPosition);
@@ -457,7 +547,7 @@ export default {
       //         position2 += diferenca_posicao;
       //       }
       //       node.setX(node.getX() - diferenca_posicao);
-      //     }, 10);
+      //     }, this.speedTimeOut);
       //   }, 1000);
 
       //   var position1 = newPosition;
@@ -481,13 +571,13 @@ export default {
       //         if (this.circleNode[0].isAnimating === true) {
       //           this.circleNode[0].setX(this.circleNode[0].getX() + 0.5);
       //         }
-      //       }, 10);
+      //       }, this.speedTimeOut);
       //     } else {
       //       setTimeout(() => {
       //         if (this.circleNode[0].isAnimating === true) {
       //           this.circleNode[0].setX(this.circleNode[0].getX() - 0.5);
       //         }
-      //       }, 10);
+      //       }, this.speedTimeOut);
       //     }
       //   }
       //   else{
