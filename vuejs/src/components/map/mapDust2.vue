@@ -26,9 +26,9 @@
                 :config="{
                   sceneFunc: function (context, shape) {
                     context.beginPath();
-                    context.moveTo(0, 10);
-                    context.lineTo(10, 0);
-                    context.quadraticCurveTo(10, 10, 10, 10);
+                    context.moveTo(0, 5);
+                    context.lineTo(5, 0);
+                    context.quadraticCurveTo(5, 5, 5, 5);
                     context.closePath();
                     context.fillStrokeShape(shape);
                   },
@@ -44,7 +44,7 @@
                 :config="{
                   x: 100,
                   y: 100,
-                  radius: 10,
+                  radius: 5,
                   fill: 'blue',
                 }"
               ></v-circle>
@@ -68,9 +68,9 @@
                 :config="{
                   sceneFunc: function (context, shape) {
                     context.beginPath();
-                    context.moveTo(0, 10);
-                    context.lineTo(10, 0);
-                    context.quadraticCurveTo(10, 10, 10, 10);
+                    context.moveTo(0, 5);
+                    context.lineTo(5, 0);
+                    context.quadraticCurveTo(5, 5, 5, 5);
                     context.closePath();
                     context.fillStrokeShape(shape);
                   },
@@ -117,8 +117,8 @@ export default {
   data() {
     return {
       playerPosition: 10,
-      speedTimeOut: 5,
-      speed: 0.2,
+      speedTimeOut: 0.01,
+      speed: 0.45,
       animations: null,
       correcao_de_angulo: 225 + 90,
       triangleNode: [],
@@ -181,11 +181,6 @@ export default {
     }, 4000);
   },
   created() {
-    setTimeout(() => {
-      this.circleNode[0].setX(100);
-      this.circleNode[0].setY(100);
-    }, 1000);
-
     // setTimeout(() => {
     //   // Antiga posicao: -130.19125
     //   // mapDust2.vue?fd63:269 Nova posicao: -120.553125
@@ -295,237 +290,186 @@ export default {
       return value;
     },
     tPlayers(newValue, oldValue) {
-      var division = 16;
-      for (let i = 0; i < this.circleNodeT.length; i++) {
-        var newValueX = Number(newValue[0].position.split(",")[0] / division);
-        var oldValueX = Number(oldValue[0].position.split(",")[0] / division);
-        // var newValueY = Number(value[0].position.split(",")[1] / 16);
-        // var oldValueY = Number(oldValue[0].position.split(",")[1] / 16);
-
-        const node = this.$refs.circleT[0].getNode();
-
-        // example of Konva.Animation
-        const anim = new Konva.Animation(function (frame) {
-          if (node.getX() <= newValueX && node.getX() && newValueX <= oldValueX){
-node.setX(node.getX() + 1);
-          }
-            
-
-          return frame;
-        }, node.getLayer());
-        anim.start();
-      }
-
-      //     this.circleNodeT[i].x(positionX);
-      //     this.circleNodeT[i].y(positionY);
-      //     this.triangleNodeT[i].x(positionX);
-      //     this.triangleNodeT[i].y(positionY);
-
-      //     this.circleNodeT[i].zIndex();
-      //     this.triangleNodeT[i].x(positionX);
-      //     this.triangleNodeT[i].y(positionY);
-      //     this.triangleNodeT[i].zIndex(1);
-      //     this.playerNumberT[i].x(positionX - 3);
-      //     this.playerNumberT[i].y(positionY - 3);
-      //     this.playerNumberT[i].zIndex();
-      //     this.triangleNodeT[i].rotation(
-      //       this.correcao_de_angulo -
-      //         this.setDegreesWithSenAndCos(
-      //           value[i].forward.split(",")[0],
-      //           value[i].forward.split(",")[1]
-      //         )
-      //     );
-      //   }
       return oldValue, newValue;
     },
-    //     ctPlayers(value, oldValue) {
-    //       var positionX = Number(value[0].position.split(",")[0] / 16);
-    //       this.playerPosition = positionX;
-    //       //   this.circleNode[0].oldValueX = Number(
-    //       //     oldValue[0].position.split(",")[0] / 16
-    //       //   );
-    //       //   this.circleNode[0].newValueY = Number(
-    //       //     value[0].position.split(",")[1] / 16
-    //       //   );
-    //       //   this.circleNode[0].oldValueY = Number(
-    //       //     oldValue[0].position.split(",")[1] / 16
-    //       //   );
-    //       for (let i = 0; i < this.circleNode.length; i++) {
-    //         //Settando valores de posicoes nos objetos
-    //         this.circleNode[i].newValueX = Number(
-    //           value[i].position.split(",")[0] / 16
-    //         );
-    //         this.circleNode[i].oldValueX = Number(
-    //           oldValue[i].position.split(",")[0] / 16
-    //         );
-    //         this.circleNode[i].newValueY = Number(
-    //           value[i].position.split(",")[1] / 16
-    //         );
-    //         this.circleNode[i].oldValueY = Number(
-    //           oldValue[i].position.split(",")[1] / 16
-    //         );
-    //         //Configurando valores reais para o canvas
-    //         if (this.circleNode[i].newValueX < 0) {
-    //           this.circleNode[i].newValueX = -Math.abs(
-    //             this.circleNode[i].newValueX
-    //           );
-    //         }
-    //         if (this.circleNode[i].oldValueX < 0) {
-    //           this.circleNode[i].oldValueX = -Math.abs(
-    //             this.circleNode[i].oldValueX
-    //           );
-    //         }
-    //         if (this.circleNode[i].newValueY < 0) {
-    //           this.circleNode[i].newValueY = +Math.abs(
-    //             this.circleNode[i].newValueY
-    //           );
-    //         } else {
-    //           this.circleNode[i].newValueY = -Math.abs(
-    //             this.circleNode[i].newValueY
-    //           );
-    //         }
-    //         if (this.circleNode[i].oldValueY < 0) {
-    //           this.circleNode[i].oldValueY = +Math.abs(
-    //             this.circleNode[i].oldValueY
-    //           );
-    //         } else {
-    //           this.circleNode[i].oldValueY = -Math.abs(
-    //             this.circleNode[i].oldValueY
-    //           );
-    //         }
-    //         //Iniciando as animacoes
-    //         if (this.circleNode[i].firstAppereance == true) {
-    //           this.circleNode[i].setX(this.circleNode[i].newValueX);
-    //           this.circleNode[i].setY(this.circleNode[i].newValueY);
-    //           this.circleNode[i].zIndex();
-    //           this.circleNode[i].setX(this.circleNode[i].newValueX);
-    //           this.circleNode[i].setY(this.circleNode[i].newValueY);
-    //           this.circleNode[i].zIndex(1);
-    //           this.circleNode[i].setX(this.circleNode[i].newValueX - 3);
-    //           this.circleNode[i].setY(this.circleNode[i].newValueY - 3);
-    //           this.circleNode[i].firstAppereance = false;
-    //         }
-    //         if (this.circleNode[i].isAnimatingX == false) {
-    //           clearInterval(this.circleNode[i].animationX);
-    //           this.circleNode[i].animationX = null;
-    //           if (this.circleNode[i].newValueX > this.circleNode[i].oldValueX) {
-    //             this.increaseAnimationX(this.circleNode[i].newValueX, i);
-    //           }
-    //           if (this.circleNode[i].newValueX < this.circleNode[i].oldValueX) {
-    //             this.decreaseAnimationX(this.circleNode[i].newValueX, i);
-    //           }
-    //         }
-    //         if (this.circleNode[i].isAnimatingY == false) {
-    //           clearInterval(this.circleNode[i].animationY);
-    //           this.circleNode[i].animationY = null;
-    //           if (this.circleNode[i].newValueY > this.circleNode[i].oldValueY) {
-    //             this.increaseAnimationY(this.circleNode[i].newValueY, i);
-    //           }
-    //           if (this.circleNode[i].newValueY < this.circleNode[i].oldValueY) {
-    //             this.decreaseAnimationY(this.circleNode[i].newValueY, i);
-    //           }
-    //         }
-    //       }
+    ctPlayers(value, oldValue) {
+      for (let i = 0; i < this.circleNode.length; i++) {
+        //Settando valores de posicoes nos objetos
+        this.circleNode[i].newValueX = Number(
+          value[i].position.split(",")[0] / 16
+        );
+        this.circleNode[i].oldValueX = Number(
+          oldValue[i].position.split(",")[0] / 16
+        );
+        this.circleNode[i].newValueY = Number(
+          value[i].position.split(",")[1] / 16
+        );
+        this.circleNode[i].oldValueY = Number(
+          oldValue[i].position.split(",")[1] / 16
+        );
+        //Configurando valores reais para o canvas
+        if (this.circleNode[i].newValueX < 0) {
+          this.circleNode[i].newValueX = -Math.abs(
+            this.circleNode[i].newValueX
+          );
+        }
+        if (this.circleNode[i].oldValueX < 0) {
+          this.circleNode[i].oldValueX = -Math.abs(
+            this.circleNode[i].oldValueX
+          );
+        }
+        if (this.circleNode[i].newValueY < 0) {
+          this.circleNode[i].newValueY = +Math.abs(
+            this.circleNode[i].newValueY
+          );
+        } else {
+          this.circleNode[i].newValueY = -Math.abs(
+            this.circleNode[i].newValueY
+          );
+        }
+        if (this.circleNode[i].oldValueY < 0) {
+          this.circleNode[i].oldValueY = +Math.abs(
+            this.circleNode[i].oldValueY
+          );
+        } else {
+          this.circleNode[i].oldValueY = -Math.abs(
+            this.circleNode[i].oldValueY
+          );
+        }
+        //Iniciando as animacoes
+        if (this.circleNode[i].firstAppereance == true) {
+          this.circleNode[i].setX(this.circleNode[i].newValueX);
+          this.circleNode[i].setY(this.circleNode[i].newValueY);
+          this.circleNode[i].zIndex();
+          this.circleNode[i].setX(this.circleNode[i].newValueX);
+          this.circleNode[i].setY(this.circleNode[i].newValueY);
+          this.circleNode[i].zIndex(1);
+          this.circleNode[i].setX(this.circleNode[i].newValueX - 3);
+          this.circleNode[i].setY(this.circleNode[i].newValueY - 3);
+          this.circleNode[i].firstAppereance = false;
+        }
+        if (
+          this.circleNode[i].isAnimatingY == false &&
+          this.circleNode[i].isAnimatingX == false
+        ) {
+          clearInterval(this.circleNode[i].animationY);
+          this.circleNode[i].animationY = null;
+          if (this.circleNode[i].newValueY > this.circleNode[i].oldValueY) {
+            this.increaseAnimationY(this.circleNode[i].newValueY, i);
+          }
+          if (this.circleNode[i].newValueY < this.circleNode[i].oldValueY) {
+            this.decreaseAnimationY(this.circleNode[i].newValueY, i);
+          }
+          clearInterval(this.circleNode[i].animationX);
+          this.circleNode[i].animationX = null;
+          if (this.circleNode[i].newValueX > this.circleNode[i].oldValueX) {
+            this.increaseAnimationX(this.circleNode[i].newValueX, i);
+          }
+          if (this.circleNode[i].newValueX < this.circleNode[i].oldValueX) {
+            this.decreaseAnimationX(this.circleNode[i].newValueX, i);
+          }
+        }
+      }
 
-    //       //   var newValueX = Number(value[0].position.split(",")[0] / 16);
-    //       //   var oldValueX = Number(oldValue[0].position.split(",")[0] / 16);
-    //       //   var newValueY = Number(value[0].position.split(",")[1] / 16);
-    //       //   var oldValueY = Number(oldValue[0].position.split(",")[1] / 16);
-    //       //   if (newValueX < 0) {
-    //       //     newValueX = -Math.abs(newValueX);
-    //       //   }
-    //       //   if (oldValueX < 0) {
-    //       //     oldValueX = -Math.abs(oldValueX);
-    //       //   }
-    //       //   if (newValueY < 0) {
-    //       //     newValueY = +Math.abs(newValueY);
-    //       //   } else {
-    //       //     newValueY = -Math.abs(newValueY);
-    //       //   }
-    //       //   if (oldValueY < 0) {
-    //       //     oldValueY = +Math.abs(oldValueY);
-    //       //   } else {
-    //       //     oldValueY = -Math.abs(oldValueY);
-    //       //   }
-    //       //   if (this.circleNode[0].firstAppereance == true) {
-    //       //     this.circleNode[0].setX(newValueX);
-    //       //     this.circleNode[0].setY(newValueY);
-    //       //     this.circleNode[0].zIndex();
-    //       //     this.triangleNode[0].x(newValueX);
-    //       //     this.triangleNode[0].y(newValueY);
-    //       //     this.triangleNode[0].zIndex(1);
-    //       //     this.playerNumber[0].x(newValueX - 3);
-    //       //     this.playerNumber[0].y(newValueY - 3);
-    //       //     this.circleNode[0].firstAppereance = false;
-    //       //   }
-    //       //   if (this.circleNode[0].isAnimatingX == false) {
-    //       //     clearInterval(this.circleNode[0].animationX);
-    //       //     this.circleNode[0].animationX = null;
-    //       //     if (newValueX > oldValueX) {
-    //       //       this.increaseAnimationX(newValueX);
-    //       //     }
-    //       //     if (newValueX < oldValueX) {
-    //       //       this.decreaseAnimationX(newValueX);
-    //       //     }
-    //       //   }
-    //       //   if (this.circleNode[0].isAnimatingY == false) {
-    //       //     clearInterval(this.circleNode[0].animationY);
-    //       //     this.circleNode[0].animationY = null;
-    //       //     if (newValueY > oldValueY) {
-    //       //       this.increaseAnimationY(newValueY);
-    //       //     }
-    //       //     if (newValueY < oldValueY) {
-    //       //       this.decreaseAnimationY(newValueY);
-    //       //     }
-    //       //   }
+      //   var newValueX = Number(value[0].position.split(",")[0] / 16);
+      //   var oldValueX = Number(oldValue[0].position.split(",")[0] / 16);
+      //   var newValueY = Number(value[0].position.split(",")[1] / 16);
+      //   var oldValueY = Number(oldValue[0].position.split(",")[1] / 16);
+      //   if (newValueX < 0) {
+      //     newValueX = -Math.abs(newValueX);
+      //   }
+      //   if (oldValueX < 0) {
+      //     oldValueX = -Math.abs(oldValueX);
+      //   }
+      //   if (newValueY < 0) {
+      //     newValueY = +Math.abs(newValueY);
+      //   } else {
+      //     newValueY = -Math.abs(newValueY);
+      //   }
+      //   if (oldValueY < 0) {
+      //     oldValueY = +Math.abs(oldValueY);
+      //   } else {
+      //     oldValueY = -Math.abs(oldValueY);
+      //   }
+      //   if (this.circleNode[0].firstAppereance == true) {
+      //     this.circleNode[0].setX(newValueX);
+      //     this.circleNode[0].setY(newValueY);
+      //     this.circleNode[0].zIndex();
+      //     this.triangleNode[0].x(newValueX);
+      //     this.triangleNode[0].y(newValueY);
+      //     this.triangleNode[0].zIndex(1);
+      //     this.playerNumber[0].x(newValueX - 3);
+      //     this.playerNumber[0].y(newValueY - 3);
+      //     this.circleNode[0].firstAppereance = false;
+      //   }
+      //   if (this.circleNode[0].isAnimatingX == false) {
+      //     clearInterval(this.circleNode[0].animationX);
+      //     this.circleNode[0].animationX = null;
+      //     if (newValueX > oldValueX) {
+      //       this.increaseAnimationX(newValueX);
+      //     }
+      //     if (newValueX < oldValueX) {
+      //       this.decreaseAnimationX(newValueX);
+      //     }
+      //   }
+      //   if (this.circleNode[0].isAnimatingY == false) {
+      //     clearInterval(this.circleNode[0].animationY);
+      //     this.circleNode[0].animationY = null;
+      //     if (newValueY > oldValueY) {
+      //       this.increaseAnimationY(newValueY);
+      //     }
+      //     if (newValueY < oldValueY) {
+      //       this.decreaseAnimationY(newValueY);
+      //     }
+      //   }
 
-    //       //   var newPositionX = Number(value[0].position.split(",")[0] / 16);
-    //       //   var oldPositionY = Number(oldValue[0].position.split(",")[0] / 16);
-    //       //   this.circleNode[0].isAnimating = true;
+      //   var newPositionX = Number(value[0].position.split(",")[0] / 16);
+      //   var oldPositionY = Number(oldValue[0].position.split(",")[0] / 16);
+      //   this.circleNode[0].isAnimating = true;
 
-    //       //   const anim = new Konva.Animation(function(frame) {
-    //       //   hexagon.setX(
-    //       //     amplitude * Math.sin((frame.time * 2 * Math.PI) / period) + centerX
-    //       //   );
-    //       // }, hexagon.getLayer());
-    //       //   var division = 16;
+      //   const anim = new Konva.Animation(function(frame) {
+      //   hexagon.setX(
+      //     amplitude * Math.sin((frame.time * 2 * Math.PI) / period) + centerX
+      //   );
+      // }, hexagon.getLayer());
+      //   var division = 16;
 
-    //       //   for (let i = 0; i < this.circleNode.length; i++) {
-    //       //     var positionX = Number(value[i].position.split(",")[0]);
-    //       //     var positionY = Number(value[i].position.split(",")[1]);
-    //       //     if (positionX < 0) {
-    //       //       positionX = -Math.abs(positionX / division);
-    //       //     } else {
-    //       //       positionX = positionX / division;
-    //       //     }
-    //       //     if (positionY < 0) {
-    //       //       positionY = +Math.abs(positionY / division);
-    //       //     } else {
-    //       //       positionY = -Math.abs(positionY / division);
-    //       //     }
+      //   for (let i = 0; i < this.circleNode.length; i++) {
+      //     var positionX = Number(value[i].position.split(",")[0]);
+      //     var positionY = Number(value[i].position.split(",")[1]);
+      //     if (positionX < 0) {
+      //       positionX = -Math.abs(positionX / division);
+      //     } else {
+      //       positionX = positionX / division;
+      //     }
+      //     if (positionY < 0) {
+      //       positionY = +Math.abs(positionY / division);
+      //     } else {
+      //       positionY = -Math.abs(positionY / division);
+      //     }
 
-    //       //     this.circleNode[i].x(positionX);
-    //       //     this.circleNode[i].y(positionY);
-    //       //     this.triangleNode[i].x(positionX);
-    //       //     this.triangleNode[i].y(positionY);
+      //     this.circleNode[i].x(positionX);
+      //     this.circleNode[i].y(positionY);
+      //     this.triangleNode[i].x(positionX);
+      //     this.triangleNode[i].y(positionY);
 
-    //       //     this.circleNode[i].zIndex();
-    //       //     this.triangleNode[i].x(positionX);
-    //       //     this.triangleNode[i].y(positionY);
-    //       //     this.triangleNode[i].zIndex(1);
-    //       //     this.playerNumber[i].x(positionX - 3);
-    //       //     this.playerNumber[i].y(positionY - 3);
-    //       //     this.playerNumber[i].zIndex();
-    //       //   this.triangleNode[0].rotation(
-    //       //     this.correcao_de_angulo -
-    //       //       this.setDegreesWithSenAndCos(
-    //       //         value[0].forward.split(",")[0],
-    //       //         value[0].forward.split(",")[1]
-    //       //       )
-    //       //   );
-    //       //   }
-    //       return value, oldValue;
-    //     },
+      //     this.circleNode[i].zIndex();
+      //     this.triangleNode[i].x(positionX);
+      //     this.triangleNode[i].y(positionY);
+      //     this.triangleNode[i].zIndex(1);
+      //     this.playerNumber[i].x(positionX - 3);
+      //     this.playerNumber[i].y(positionY - 3);
+      //     this.playerNumber[i].zIndex();
+      //   this.triangleNode[0].rotation(
+      //     this.correcao_de_angulo -
+      //       this.setDegreesWithSenAndCos(
+      //         value[0].forward.split(",")[0],
+      //         value[0].forward.split(",")[1]
+      //       )
+      //   );
+      //   }
+      return value, oldValue;
+    },
   },
 
   methods: {
