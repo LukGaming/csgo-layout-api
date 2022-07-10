@@ -169,63 +169,8 @@ export default {
     };
   },
   mounted() {
-    setTimeout(() => {
-      const node = this.$refs.circleT[0].getNode();
-
-      // example of Konva.Animation
-      const anim = new Konva.Animation(function (frame) {
-        node.setX(node.getX() + 1);
-        return frame;
-      }, node.getLayer());
-      anim.start();
-    }, 4000);
   },
   created() {
-    // setTimeout(() => {
-    //   // Antiga posicao: -130.19125
-    //   // mapDust2.vue?fd63:269 Nova posicao: -120.553125
-    //   const position1 = -130.19125;
-    //   const position2 = -120.553125;
-    //   this.circleNode[0].setX(position1);
-    //   setInterval(() => {
-    //     if (position1 < position2) {
-    //       if (this.circleNode[0].getX() <= position2) {
-    //         this.circleNode[0].setX(this.circleNode[0].getX() + this.speed);
-    //       }
-    //     } else {
-    //       if (this.circleNode[0].getX() >= position2) {
-    //         this.circleNode[0].setX(this.circleNode[0].getX() - this.speed);
-    //       }
-    //     }
-    //   }, this.speedTimeOut);
-    // }, 3000);
-
-    // setTimeout(() => {
-    //   console.log("iniciando funcao");
-    //   // this.animations = new Konva.Animation(function (frame) {
-    //   //   console.log(frame);
-    //   // }, this.circleNode[0]);
-    //   // this.animations.start();
-    //   const _this = this;
-    //   const node = this.circleNode[0].getLayer();
-    //   const anim1 = new Konva.Animation(function (frame) {
-    //     var positionX = _this.ctPlayers[0].position.split(",")[0] / 16;
-    //     var positionY = _this.ctPlayers[0].position.split(",")[1] / 16;
-    //     console.log();
-    //     node.setX(positionX);
-    //     node.setY(positionY);
-    //     return frame;
-    //   }, node);
-    //   anim1.start();
-    // }, 3000);
-    // setTimeout(() => {
-    //   const node = this.$refs.ctLayer[0].getNode();
-    //   const anim = new Konva.Animation(function (frame) {
-    //     console.log(frame);
-    //     node.setX(node.getX() + 0.5);
-    //   }, node.getLayer());
-    //   anim.start();
-    // }, 1000);
     setTimeout(() => {
       for (let i = 0; i < this.ctPlayers.length; i++) {
         this.triangleNode.push(this.$refs.triangle[i].getNode());
