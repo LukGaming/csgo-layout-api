@@ -171,13 +171,13 @@ export const game_data = {
             state.tPlayersPosition = [];
         },
         resetCtPlayerPosition(state) {
-            state.tPlayersPosition = [];
+            state.ctPlayersPosition = [];
         },
         setTPlayersPosition(state, payload) {
             state.tPlayersPosition.push(payload);
         },
         setCtPlayersPosition(state, payload) {
-            state.tPlayersPosition.push(payload);
+            state.ctPlayersPosition.push(payload);
         },
         setTimeRound(state, payload) {
             state.roundTime = payload;

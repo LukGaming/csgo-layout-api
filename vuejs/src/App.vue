@@ -49,8 +49,8 @@ export default {
     },
     computed: {
         ...mapGetters({
-            tPlayersPosition: "game_data/tPlayersPosition",
-            ctPlayersPosition: "game_data/ctPlayersPosition"
+            // tPlayersPosition: "game_data/tPlayersPosition",
+            // ctPlayersPosition: "game_data/ctPlayersPosition"
         }),
     },
     sockets: {
